@@ -1,0 +1,249 @@
+[OSEv3:vars]
+
+###########################################################################
+### Ansible Vars
+###########################################################################
+timeout=60
+ansible_become=yes
+##ansible_ssh_user=ec2-user
+ansible_ssh_user=root
+
+###########################################################################
+### OpenShift Basic Vars
+###########################################################################
+deployment_type=openshift-enterprise
+containerized=false
+openshift_disable_check="disk_availability,memory_availability,docker_image_availability"
+
+# default project node selector
+osm_default_node_selector='env=app'
+
+# Configure node kubelet arguments. pods-per-core is valid in OpenShift Origin 1.3 or OpenShift Container Platform 3.3 and later.
+openshift_node_kubelet_args={'pods-per-core': ['10'], 'max-pods': ['250'], 'image-gc-high-threshold': ['85'], 'image-gc-low-threshold': ['75']}
+
+# Configure logrotate scripts
+# See: https://github.com/nickhammond/ansible-logrotate
+logrotate_scripts=[{"name": "syslog", "path": "/var/log/cron\n/var/log/maillog\n/var/log/messages\n/var/log/secure\n/var/log/spooler\n", "options": ["daily", "rotate 7","size 500M", "compress", "sharedscripts", "missingok"], "scripts": {"postrotate": "/bin/kill -HUP `cat /var/run/syslogd.pid 2> /dev/null` 2> /dev/null || true"}}]
+
+
+###########################################################################
+### OpenShift Optional Vars
+###########################################################################
+
+# Enable cockpit
+osm_use_cockpit=true
+osm_cockpit_plugins=['cockpit-kubernetes']
+
+###########################################################################
+### OpenShift Master Vars
+###########################################################################
+
+openshift_master_api_port=443
+openshift_master_console_port=443
+
+openshift_master_cluster_method=native
+openshift_master_cluster_hostname=loadbalancer1-86ca.oslab.opentlc.com
+openshift_master_cluster_public_hostname=loadbalancer1-86ca.oslab.opentlc.com
+# XXXXXXXXXXXX
+openshift_master_default_subdomain=apps.86ca.oslab.opentlc.com
+#openshift_master_ca_certificate={'certfile': '/root/intermediate_ca.crt', 'keyfile': '/root/intermediate_ca.key'}
+openshift_master_overwrite_named_certificates=True
+
+openshift_set_hostname=True
+
+###########################################################################
+### OpenShift Network Vars
+###########################################################################
+
+osm_cluster_network_cidr=10.1.0.0/16
+openshift_portal_net=172.30.0.0/16
+
+os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
+# os_sdn_network_plugin_name='redhat/openshift-ovs-subnet'
+
+# This should be turned on once all dependent scripts use firewalld rather than iptables
+# os_firewall_use_firewalld=True
+
+###########################################################################
+### OpenShift Authentication Vars
+###########################################################################
+
+
+
+# htpasswd auth
+openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+# Defining htpasswd users
+#openshift_master_htpasswd_users={'user1': '<pre-hashed password>', 'user2': '<pre-hashed password>'}
+# or
+openshift_master_htpasswd_file=/root/projects/ocp_homework/htpasswd.openshift
+
+###########################################################################
+### OpenShift Metrics and Logging Vars
+###########################################################################
+
+# Enable cluster metrics
+
+openshift_metrics_install_metrics=True
+
+openshift_metrics_storage_kind=nfs
+openshift_metrics_storage_access_modes=['ReadWriteOnce']
+openshift_metrics_storage_nfs_directory=/exports
+openshift_metrics_storage_nfs_options='*(rw,root_squash)'
+openshift_metrics_storage_volume_name=metrics
+openshift_metrics_storage_volume_size=10Gi
+openshift_metrics_storage_labels={'storage': 'metrics'}
+
+#openshift_master_metrics_public_url=https://hawkular-metrics.apps.86ca.example.opentlc.com/hawkular/metrics
+
+## Add Prometheus Metrics:
+openshift_hosted_prometheus_deploy=true
+openshift_prometheus_node_selector={"env":"infra"}
+openshift_prometheus_namespace=openshift-metrics
+
+# Prometheus
+openshift_prometheus_storage_kind=nfs
+openshift_prometheus_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_storage_nfs_directory=/exports
+openshift_prometheus_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_storage_volume_name=prometheus
+openshift_prometheus_storage_volume_size=10Gi
+openshift_prometheus_storage_labels={'storage': 'prometheus'}
+openshift_prometheus_storage_type='pvc'
+# For prometheus-alertmanager
+openshift_prometheus_alertmanager_storage_kind=nfs
+openshift_prometheus_alertmanager_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_alertmanager_storage_nfs_directory=/exports
+openshift_prometheus_alertmanager_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_alertmanager_storage_volume_name=prometheus-alertmanager
+openshift_prometheus_alertmanager_storage_volume_size=10Gi
+openshift_prometheus_alertmanager_storage_labels={'storage': 'prometheus-alertmanager'}
+openshift_prometheus_alertmanager_storage_type='pvc'
+# For prometheus-alertbuffer
+openshift_prometheus_alertbuffer_storage_kind=nfs
+openshift_prometheus_alertbuffer_storage_access_modes=['ReadWriteOnce']
+openshift_prometheus_alertbuffer_storage_nfs_directory=/exports
+openshift_prometheus_alertbuffer_storage_nfs_options='*(rw,root_squash)'
+openshift_prometheus_alertbuffer_storage_volume_name=prometheus-alertbuffer
+openshift_prometheus_alertbuffer_storage_volume_size=10Gi
+openshift_prometheus_alertbuffer_storage_labels={'storage': 'prometheus-alertbuffer'}
+openshift_prometheus_alertbuffer_storage_type='pvc'
+
+openshift_metrics_cassandra_nodeselector={"env":"infra"}
+openshift_metrics_hawkular_nodeselector={"env":"infra"}
+openshift_metrics_heapster_nodeselector={"env":"infra"}
+
+# Enable cluster logging
+
+openshift_logging_install_logging=True
+
+openshift_logging_storage_kind=nfs
+openshift_logging_storage_access_modes=['ReadWriteOnce']
+openshift_logging_storage_nfs_directory=/exports
+openshift_logging_storage_nfs_options='*(rw,root_squash)'
+openshift_logging_storage_volume_name=logging
+openshift_logging_storage_volume_size=10Gi
+openshift_logging_storage_labels={'storage': 'logging'}
+
+openshift_logging_kibana_hostname=kibana.apps.86ca.example.opentlc.com
+openshift_logging_es_cluster_size=1
+
+openshift_logging_es_nodeselector={"env":"infra"}
+openshift_logging_kibana_nodeselector={"env":"infra"}
+openshift_logging_curator_nodeselector={"env":"infra"}
+
+
+openshift_logging_es_allow_external=True
+openshift_logging_es_hostname=elasticsearch.apps.86ca.example.opentlc.com
+
+###########################################################################
+### OpenShift Project Management Vars
+###########################################################################
+
+# Configure additional projects
+openshift_additional_projects={'my-infra-project-test': {'default_node_selector': 'env=infra'}}
+
+###########################################################################
+### OpenShift Router and Registry Vars
+###########################################################################
+
+openshift_hosted_router_selector='env=infra'
+openshift_hosted_router_replicas=2
+#openshift_hosted_router_certificate={"certfile": "/path/to/router.crt", "keyfile": "/path/to/router.key", "cafile": "/path/to/router-ca.crt"}
+
+openshift_hosted_registry_selector='env=infra'
+openshift_hosted_registry_replicas=1
+
+openshift_hosted_registry_storage_kind=nfs
+openshift_hosted_registry_storage_access_modes=['ReadWriteMany']
+openshift_hosted_registry_storage_nfs_directory=/exports
+openshift_hosted_registry_storage_nfs_options='*(rw,root_squash)'
+openshift_hosted_registry_storage_volume_name=registry
+openshift_hosted_registry_storage_volume_size=20Gi
+openshift_hosted_registry_pullthrough=true
+openshift_hosted_registry_acceptschema2=true
+openshift_hosted_registry_enforcequota=true
+
+
+###########################################################################
+### OpenShift Service Catalog Vars
+###########################################################################
+
+openshift_enable_service_catalog=true
+## openshift_enable_service_catalog=false
+# XXXXXXX
+#template_service_broker_install=true
+template_service_broker_install=false
+openshift_template_service_broker_namespaces=['openshift']
+ansible_service_broker_install=false
+
+###########################################################################
+### OpenShift Hosts
+###########################################################################
+[OSEv3:children]
+lb
+masters
+etcd
+nodes
+nfs
+
+[lb]
+loadbalancer1.example.com host_zone=eu-central-1b
+
+[masters]
+master1.example.com host_zone=eu-central-1b
+master2.example.com host_zone=eu-central-1b
+master3.example.com host_zone=eu-central-1b
+
+[etcd]
+master1.example.com host_zone=eu-central-1b
+master2.example.com host_zone=eu-central-1b
+master3.example.com host_zone=eu-central-1b
+
+
+[nodes]
+## These are the masters
+master1.example.com openshift_hostname=master1.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': '86ca', 'zone': 'eu-central-1b'}"
+master2.example.com openshift_hostname=master2.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': '86ca', 'zone': 'eu-central-1b'}"
+master3.example.com openshift_hostname=master3.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': '86ca', 'zone': 'eu-central-1b'}"
+
+## These are infranodes
+infranode3.example.com openshift_hostname=infranode3.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'infra', 'zone': 'eu-central-1b'}"
+infranode2.example.com openshift_hostname=infranode2.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'infra', 'zone': 'eu-central-1b'}"
+
+## These are regular nodes
+node1.example.com openshift_hostname=node1.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'app', 'zone': 'eu-central-1b'}"
+node2.example.com openshift_hostname=node2.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'app', 'zone': 'eu-central-1b'}"
+node3.example.com openshift_hostname=node3.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'app', 'zone': 'eu-central-1b'}"
+
+
+[nfs]
+node6.example.com openshift_hostname=node6.example.com
+
+[rest]
+##cf1.example.com
+##ipa.example.com
+infranode1.example.com
+node4.example.com
+node5.example.com
+localhost
+

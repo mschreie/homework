@@ -1,0 +1,59 @@
+# This deletes *ALL* Origin and OpenShift Enterprise content installed by
+# ansible.  This includes:
+#
+#    configuration
+#    containers
+#    example templates and imagestreams
+#    images
+#    RPMs
+---
+- hosts: nfs
+  become: yes
+  tasks:
+
+  - name: assure nfs directories
+    file: 
+       path: "/exports/user-vols/pv{{ item }}"
+       owner: nfsnobody
+       group: nfsnobody
+       mode: 0777
+    with_items: 
+       [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,44,44,45,46,47,48,49,50 ] 
+
+  - name: create exports for user pvs
+    lineinfile:
+       path: /etc/exports.d/openshift-uservols.exports
+       create: yes
+       state: present
+       regexp: "/exports/user-vols/pv{{ item }}"
+       line: "/exports/user-vols/pv{{ item }} *(rw,root_squash)"
+    with_items: 
+       [ 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,44,44,45,46,47,48,49,50 ] 
+
+
+  - name: Restart nfs-server
+    systemd:
+       state: restarted
+       daemon_reload: yes
+       name: nfs-server
+
+- hosts: master1.example.com
+  become: yes
+  tasks:
+  - name: Create pv defenitions 
+    script: ./create_pv_definition.sh
+
+  - name: Create pvs
+    shell: "cat /root/pvs/* | oc create -f -"
+
+  - name: promote admin to cluster_admin
+    shell: "oc adm policy add-cluster-role-to-user cluster-admin admin"
+
+  - name: login as alice
+    shell: "oc login -u alice -p r3dh4t1!"
+
+  - name: create project
+    shell: "oc new-project alice1
+
+  - name: create application
+    shell: "oc new-app https://github.com/openshift-roadshow/parksmap-web"

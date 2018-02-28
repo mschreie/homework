@@ -1,0 +1,14 @@
+# This deletes *ALL* Origin and OpenShift Enterprise content installed by
+# ansible.  This includes:
+#
+#    configuration
+#    containers
+#    example templates and imagestreams
+#    images
+#    RPMs
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: adjust timezone
+    shell: "timedatectl set-timezone Europe/Berlin"

@@ -1,0 +1,34 @@
+# This deletes *ALL* Origin and OpenShift Enterprise content installed by
+# ansible.  This includes:
+#
+#    configuration
+#    containers
+#    example templates and imagestreams
+#    images
+#    RPMs
+---
+- hosts: master1.example.com
+  become: yes
+  tasks:
+  - name: create project
+    shell: "oc new-project alice1"
+
+  - name: create application
+    shell: "oc new-app https://github.com/openshift-roadshow/parksmap-web"
+
+  - name: set up jenkins
+    shell: | 
+      oc new-project jenkins
+      oc adm policy add-role-to-user edit alice
+      oc adm policy add-role-to-user edit bob
+      oc new-app jenkins-persistent —param ENABLE_OAUTH=true —param MEMORY_LIMIT=2Gi —param VOLUME_CAPACITY=4G
+  - name: set up dev and prod roject
+      oc new-project dev
+      oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n dev
+      oc adm policy add-role-to-user edit alice
+      oc adm policy add-role-to-user edit bob
+      oc new-project prod
+      oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n prod
+      oc adm policy add-role-to-user edit alice
+      oc adm policy add-role-to-user edit bob
+       
