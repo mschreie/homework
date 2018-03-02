@@ -14,6 +14,7 @@
   - name: assure nfs directories
     file: 
        path: "/exports/user-vols/pv{{ item }}"
+       recurse: yes
        owner: nfsnobody
        group: nfsnobody
        mode: 0777
@@ -49,11 +50,8 @@
   - name: promote admin to cluster_admin
     shell: "oc adm policy add-cluster-role-to-user cluster-admin admin"
 
-  - name: login as alice
-    shell: "oc login -u alice -p r3dh4t1!"
-
-  - name: create project
-    shell: "oc new-project alice1"
-
-  - name: create application
-    shell: "oc new-app https://github.com/openshift-roadshow/parksmap-web"
+  - name: deploy app for alice in project alice1
+    shell: | 
+     oc login -u alice -p "r3dh4t1!"
+     oc new-project alice1
+     oc new-app https://github.com/openshift-roadshow/parksmap-web

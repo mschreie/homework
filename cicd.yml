@@ -10,12 +10,6 @@
 - hosts: master1.example.com
   become: yes
   tasks:
-  - name: create project
-    shell: "oc new-project alice1"
-
-  - name: create application
-    shell: "oc new-app https://github.com/openshift-roadshow/parksmap-web"
-
   - name: set up jenkins
     shell: | 
       oc new-project jenkins

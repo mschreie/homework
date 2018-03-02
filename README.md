@@ -54,11 +54,20 @@ call the ocp deployment
 [root@oselab-86ca ocp_homework]# ansible-playbook -i hosts /usr/share/ansible/openshift-ansible/playbooks/byo/config.yml 
 
 
-7) do post install things
-cicd.yml
-create_pv_definition.sh
-hosts
+7) run post install tasks
+  - creat pvs (including nfs-share preparation) 
+  - creates some testapp for alice
+[root@oselab-86ca ocp_homework]# ansible-playbook -i hosts  post_deploy.yml
+     utilizes: create_pv_definition.sh
+
+8) set up jenkins
+[root@oselab-86ca ocp_homework]#  cicd.yml
+
+
+Needed for the scripts to run:
+hosts   
+    this is the standar OCP configuration file -i do not add any parameters here, bus utilize this file as a base for the self created scripts as well.
 htpasswd.openshift
-post_deploy.yml
+    three users are defined (admin, alice, bob); admin wil be promoted to cluster-admim during with one of the playbooks...
 
 
