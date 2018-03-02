@@ -53,7 +53,7 @@
     shell: "oc login -u alice -p r3dh4t1!"
 
   - name: create project
-    shell: "oc new-project alice1
+    shell: "oc new-project alice1"
 
   - name: create application
     shell: "oc new-app https://github.com/openshift-roadshow/parksmap-web"
