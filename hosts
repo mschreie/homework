@@ -188,8 +188,8 @@ openshift_hosted_registry_enforcequota=true
 ### OpenShift Service Catalog Vars
 ###########################################################################
 
-openshift_enable_service_catalog=true
-## openshift_enable_service_catalog=false
+# XXXXXXX
+openshift_enable_service_catalog=false
 # XXXXXXX
 #template_service_broker_install=true
 template_service_broker_install=false

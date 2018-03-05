@@ -61,7 +61,7 @@ call the ocp deployment
      utilizes: create_pv_definition.sh
 
 8) set up jenkins
-[root@oselab-86ca ocp_homework]#  cicd.yml
+[root@oselab-86ca ocp_homework]# ansible-playbook -i hosts  cicd.yml
 
 
 Needed for the scripts to run:
