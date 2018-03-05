@@ -10,6 +10,11 @@
 - hosts: all
   become: yes
   tasks:
+  - name: assure hostname
+    shell: "hostnamectl set-hostname {{ inventory_hostname }}"
+     # FIXME: this sets locahost as hostname on the localhost, but since this host is only jumphost i do not care..
+    # GOOD: All other hosts now knwo who they are!
+
   - name: adjust timezone
     shell: "timedatectl set-timezone Europe/Berlin"
 
