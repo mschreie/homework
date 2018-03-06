@@ -12,16 +12,20 @@
   tasks:
   - name: set up jenkins
     shell: | 
+      oc login -u system:admin
       oc new-project jenkins
+      sleep 2
       oc adm policy add-role-to-user edit alice
       oc adm policy add-role-to-user edit bob
       oc new-app jenkins-persistent —param ENABLE_OAUTH=true —param MEMORY_LIMIT=2Gi —param VOLUME_CAPACITY=4G
   - name: set up dev and prod roject
       oc new-project dev
+      sleep 2
       oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n dev
       oc adm policy add-role-to-user edit alice
       oc adm policy add-role-to-user edit bob
       oc new-project prod
+      sleep 2
       oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n prod
       oc adm policy add-role-to-user edit alice
       oc adm policy add-role-to-user edit bob

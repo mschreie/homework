@@ -54,4 +54,7 @@
     shell: | 
      oc login -u alice -p "r3dh4t1!"
      oc new-project alice1
+     sleep 2
      oc new-app https://github.com/openshift-roadshow/parksmap-web
+      # did not deploy parksmap-web application. i believe this ran into an timeout because of compute ressource limitations....
+      # worked on the second manual try
