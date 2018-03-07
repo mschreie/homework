@@ -1,5 +1,6 @@
 #/bin/bash
 
+officialserver=192.168.0.1
 DOM=example.com
 REV=0.168.192.in-addr.arpa
 NAMESERVER=oselab.example.com  
@@ -13,11 +14,11 @@ export DOM NAMESERVER ocp_hosts_file
 
 function forw_record {
      echo -n "$1. IN A "
-     dig +short $1
+     dig +short $1 @$officialserver
 }
 
 function rev_record {
-     dig +short $1 | sed -e 's:\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\):\4.\3.\2.\1.in-addr.arpa. IN PTR '$1'.:'
+     dig +short $1 @$officialserver | sed -e 's:\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\)\.\([0-9]*\):\4.\3.\2.\1.in-addr.arpa. IN PTR '$1'.:'
 }
 
 function zone_head {

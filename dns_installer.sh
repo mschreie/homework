@@ -1,6 +1,7 @@
 #!/bin/bash
 
 guid=`hostname|cut -f2 -d-|cut -f1 -d.`
+guid=86ca
 yum -y install bind bind-utils
 systemctl enable named
 systemctl stop named
@@ -11,10 +12,12 @@ systemctl stop named
 #firewall-cmd --reload
 #sleep 100;
 
-infraIP1=`host infranode1-$guid.oslab.opentlc.com ipa.opentlc.com  | grep $guid | awk '{ print $4 }'`
-infraIP2=`host infranode2-$guid.oslab.opentlc.com ipa.opentlc.com  | grep $guid | awk '{ print $4 }'`
-infraIP3=`host infranode3-$guid.oslab.opentlc.com ipa.opentlc.com  | grep $guid | awk '{ print $4 }'`
-domain="cloudapps-$guid.oslab.opentlc.com"
+## infraIP1=`host infranode1-$guid.oslab.opentlc.com ipa.opentlc.com  | grep $guid | awk '{ print $4 }'`
+infraIP1=`host infranode1-$guid.oslab.opentlc.com 52.2.39.130  | grep $guid | awk '{ print $4 }'`
+infraIP2=`host infranode2-$guid.oslab.opentlc.com 52.2.39.130  | grep $guid | awk '{ print $4 }'`
+infraIP3=`host infranode3-$guid.oslab.opentlc.com 52.2.39.130  | grep $guid | awk '{ print $4 }'`
+### domain="cloudapps-$guid.oslab.opentlc.com"
+domain="apps.$guid.example.opentlc.com"
 
 echo infraIP 1  is $infraIP1 | tee -a /root/.dns.installer.txt
 echo infraIP 2  is $infraIP2 | tee -a /root/.dns.installer.txt
@@ -73,7 +76,7 @@ restorecon /etc/named.conf
 
 systemctl start named
 
-dig @127.0.0.1 test.cloudapps-$guid.oslab.opentlc.com
+dig @127.0.0.1 test.$domain
 
 if [ $? = 0 ]
 then
