@@ -149,8 +149,9 @@ openshift_logging_kibana_hostname=kibana.apps.86ca.example.opentlc.com
 
 # added this cause i could not log into kibana (redirecting to master1....)
 # also see: https://access.redhat.com/solutions/3232581
-openshift_logging_master_url=https://kibana.apps.86ca.example.opentlc.com
+openshift_logging_master_url=https://{{ openshift_master_cluster_public_hostname }}
 openshift_logging_master_public_url=https://{{ openshift_master_cluster_public_hostname }}
+#### openshift_logging_master_url=https://kibana.apps.86ca.example.opentlc.com
 #### openshift_logging_master_public_url=https://kibana.apps.86ca.example.opentlc.com
 
 openshift_logging_es_cluster_size=1
