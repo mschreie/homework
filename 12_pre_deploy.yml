@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: point resolver to own dns server
+    shell: |
+      nmcli con modify "System eth0" -ipv4.dns 192.168.0.1
+      nmcli con modify "System eth0" ipv4.ignore-auto-dns yes
+      nmcli con modify "System eth0" ipv4.dns 192.168.0.254
+
+  - name: restart network
+    systemd:
+       state: restarted
+       name: network
+

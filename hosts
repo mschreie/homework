@@ -11,7 +11,10 @@ ansible_ssh_user=root
 ###########################################################################
 ### OpenShift Basic Vars
 ###########################################################################
+# changed parameter name with 3.9
 deployment_type=openshift-enterprise
+openshift_deployment_type=openshift-enterprise
+
 containerized=false
 openshift_disable_check="disk_availability,memory_availability,docker_image_availability"
 
@@ -20,7 +23,7 @@ openshift_clock_enabled=true
 
 
 # default project node selector
-osm_default_node_selector='env=app'
+osm_default_node_selector='region=app'
 
 # Configure node kubelet arguments. pods-per-core is valid in OpenShift Origin 1.3 or OpenShift Container Platform 3.3 and later.
 openshift_node_kubelet_args={'pods-per-core': ['10'], 'max-pods': ['250'], 'image-gc-high-threshold': ['85'], 'image-gc-low-threshold': ['75']}
@@ -46,10 +49,10 @@ openshift_master_api_port=443
 openshift_master_console_port=443
 
 openshift_master_cluster_method=native
-openshift_master_cluster_hostname=loadbalancer1-86ca.oslab.opentlc.com
-openshift_master_cluster_public_hostname=loadbalancer1-86ca.oslab.opentlc.com
+openshift_master_cluster_hostname=loadbalancer1-8226.oslab.opentlc.com
+openshift_master_cluster_public_hostname=loadbalancer1-8226.oslab.opentlc.com
 # XXXXXXXXXXXX
-openshift_master_default_subdomain=apps.86ca.oslab.opentlc.com
+openshift_master_default_subdomain=apps.8226.oslab.opentlc.com
 #openshift_master_ca_certificate={'certfile': '/root/intermediate_ca.crt', 'keyfile': '/root/intermediate_ca.key'}
 openshift_master_overwrite_named_certificates=True
 
@@ -72,14 +75,13 @@ os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
 ### OpenShift Authentication Vars
 ###########################################################################
 
-
-
 # htpasswd auth
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
+
 # Defining htpasswd users
 #openshift_master_htpasswd_users={'user1': '<pre-hashed password>', 'user2': '<pre-hashed password>'}
 # or
-openshift_master_htpasswd_file=/root/projects/ocp_homework/htpasswd.openshift
+openshift_master_htpasswd_file=/root/project/homework/htpasswd.openshift
 
 ###########################################################################
 ### OpenShift Metrics and Logging Vars
@@ -97,11 +99,11 @@ openshift_metrics_storage_volume_name=metrics
 openshift_metrics_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage': 'metrics'}
 
-#openshift_master_metrics_public_url=https://hawkular-metrics.apps.86ca.example.opentlc.com/hawkular/metrics
+#openshift_master_metrics_public_url=https://hawkular-metrics.apps.8226.example.opentlc.com/hawkular/metrics
 
 ## Add Prometheus Metrics:
 openshift_hosted_prometheus_deploy=true
-openshift_prometheus_node_selector={"env":"infra"}
+openshift_prometheus_node_selector={"region":"infra"}
 openshift_prometheus_namespace=openshift-metrics
 
 # Prometheus
@@ -132,9 +134,9 @@ openshift_prometheus_alertbuffer_storage_volume_size=10Gi
 openshift_prometheus_alertbuffer_storage_labels={'storage': 'prometheus-alertbuffer'}
 openshift_prometheus_alertbuffer_storage_type='pvc'
 
-openshift_metrics_cassandra_nodeselector={"env":"infra"}
-openshift_metrics_hawkular_nodeselector={"env":"infra"}
-openshift_metrics_heapster_nodeselector={"env":"infra"}
+openshift_metrics_cassandra_nodeselector={"region":"infra"}
+openshift_metrics_hawkular_nodeselector={"region":"infra"}
+openshift_metrics_heapster_nodeselector={"region":"infra"}
 
 # Enable cluster logging
 
@@ -149,24 +151,24 @@ openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage': 'logging'}
 
 # The external host name for web clients to reach Kibana.
-openshift_logging_kibana_hostname=kibana.apps.86ca.example.opentlc.com
+openshift_logging_kibana_hostname=kibana.apps.8226.example.opentlc.com
 
 # added this cause i could not log into kibana (redirecting to master1....)
 # also see: https://access.redhat.com/solutions/3232581
 openshift_logging_master_url=https://{{ openshift_master_cluster_public_hostname }}
 openshift_logging_master_public_url=https://{{ openshift_master_cluster_public_hostname }}
-#### openshift_logging_master_url=https://kibana.apps.86ca.example.opentlc.com
-#### openshift_logging_master_public_url=https://kibana.apps.86ca.example.opentlc.com
+#### openshift_logging_master_url=https://kibana.apps.8226.example.opentlc.com
+#### openshift_logging_master_public_url=https://kibana.apps.8226.example.opentlc.com
 
 openshift_logging_es_cluster_size=1
 
-openshift_logging_es_nodeselector={"env":"infra"}
-openshift_logging_kibana_nodeselector={"env":"infra"}
-openshift_logging_curator_nodeselector={"env":"infra"}
+openshift_logging_es_nodeselector={"region":"infra"}
+openshift_logging_kibana_nodeselector={"region":"infra"}
+openshift_logging_curator_nodeselector={"region":"infra"}
 
 
 openshift_logging_es_allow_external=True
-openshift_logging_es_hostname=elasticsearch.apps.86ca.example.opentlc.com
+openshift_logging_es_hostname=elasticsearch.apps.8226.example.opentlc.com
 
 
 ###########################################################################
@@ -174,17 +176,17 @@ openshift_logging_es_hostname=elasticsearch.apps.86ca.example.opentlc.com
 ###########################################################################
 
 # Configure additional projects
-openshift_additional_projects={'my-infra-project-test': {'default_node_selector': 'env=infra'}}
+openshift_additional_projects={'my-infra-project-test': {'default_node_selector': 'region=infra'}}
 
 ###########################################################################
 ### OpenShift Router and Registry Vars
 ###########################################################################
 
-openshift_hosted_router_selector='env=infra'
+openshift_hosted_router_selector='region=infra'
 openshift_hosted_router_replicas=2
 #openshift_hosted_router_certificate={"certfile": "/path/to/router.crt", "keyfile": "/path/to/router.key", "cafile": "/path/to/router-ca.crt"}
 
-openshift_hosted_registry_selector='env=infra'
+openshift_hosted_registry_selector='region=infra'
 openshift_hosted_registry_replicas=1
 
 openshift_hosted_registry_storage_kind=nfs
@@ -236,18 +238,20 @@ master3.example.com host_zone=eu-central-1b
 
 [nodes]
 ## These are the masters
-master1.example.com openshift_hostname=master1.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': '86ca', 'zone': 'eu-central-1b'}"
-master2.example.com openshift_hostname=master2.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': '86ca', 'zone': 'eu-central-1b'}"
-master3.example.com openshift_hostname=master3.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': '86ca', 'zone': 'eu-central-1b'}"
+## with 3.9 masters should be schedulable ... (which would be the default)
+### master1.example.com openshift_hostname=master1.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': '8226', 'zone': 'eu-central-1b'}"
+master1.example.com openshift_hostname=master1.example.com openshift_node_labels="{'logging':'true','cluster': '8226', 'zone': 'eu-central-1b'}"
+master2.example.com openshift_hostname=master2.example.com openshift_node_labels="{'logging':'true','cluster': '8226', 'zone': 'eu-central-1b'}"
+master3.example.com openshift_hostname=master3.example.com openshift_node_labels="{'logging':'true','cluster': '8226', 'zone': 'eu-central-1b'}"
 
 ## These are infranodes
-infranode3.example.com openshift_hostname=infranode3.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'infra', 'zone': 'eu-central-1b'}"
-infranode2.example.com openshift_hostname=infranode2.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'infra', 'zone': 'eu-central-1b'}"
+infranode3.example.com openshift_hostname=infranode3.example.com  openshift_node_labels="{'logging':'true','cluster': '8226', 'region':'infra', 'zone': 'eu-central-1b'}"
+infranode2.example.com openshift_hostname=infranode2.example.com  openshift_node_labels="{'logging':'true','cluster': '8226', 'region':'infra', 'zone': 'eu-central-1b'}"
 
 ## These are regular nodes
-node1.example.com openshift_hostname=node1.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'app', 'zone': 'eu-central-1b'}"
-node2.example.com openshift_hostname=node2.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'app', 'zone': 'eu-central-1b'}"
-node3.example.com openshift_hostname=node3.example.com  openshift_node_labels="{'logging':'true','cluster': '86ca', 'env':'app', 'zone': 'eu-central-1b'}"
+node1.example.com openshift_hostname=node1.example.com  openshift_node_labels="{'logging':'true','cluster': '8226', 'region':'app', 'zone': 'eu-central-1b'}"
+node2.example.com openshift_hostname=node2.example.com  openshift_node_labels="{'logging':'true','cluster': '8226', 'region':'app', 'zone': 'eu-central-1b'}"
+node3.example.com openshift_hostname=node3.example.com  openshift_node_labels="{'logging':'true','cluster': '8226', 'region':'app', 'zone': 'eu-central-1b'}"
 
 
 [nfs]
