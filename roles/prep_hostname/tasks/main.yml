@@ -1,0 +1,10 @@
+---
+- name: assure hostname
+  shell: "hostnamectl set-hostname {{ inventory_hostname }}"
+
+- name: adjust timezone
+  shell: "timedatectl set-timezone Europe/Berlin"
+
+
+
+

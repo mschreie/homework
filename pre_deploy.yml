@@ -1,23 +1,24 @@
-# This deletes *ALL* Origin and OpenShift Enterprise content installed by
-# ansible.  This includes:
-#
-#    configuration
-#    containers
-#    example templates and imagestreams
-#    images
-#    RPMs
 ---
-- hosts: all
-  become: yes
-  tasks:
-  - name: assure hostname
-    shell: "hostnamectl set-hostname {{ inventory_hostname }}"
-     # FIXME: this sets locahost as hostname on the localhost, but since this host is only jumphost i do not care..
-    # GOOD: All other hosts now knwo who they are!
-
-  - name: adjust timezone
-    shell: "timedatectl set-timezone Europe/Berlin"
-
+## moved to 00_pre ... script
+## - hosts: ose3, rest
+##   become: yes
+##   tasks:
+##   - name: assure hostname
+##     shell: "hostnamectl set-hostname {{ inventory_hostname }}"
+## 
+## - hosts: localhost
+##   become: yes
+##   tasks:
+##   - name: assure hostname
+##     shell: "hostnamectl set-hostname oselab-8226.oslab.opentlc.com"
+##     # FIXME: hostname hardcoded ....
+## 
+## - hosts: all
+##   become: yes
+##   tasks:
+##   - name: adjust timezone
+##     shell: "timedatectl set-timezone Europe/Berlin"
+## 
   - name: point resolver to own dns server
     shell: |
       nmcli con modify "System eth0" -ipv4.dns 192.168.0.1

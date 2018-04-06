@@ -5,39 +5,12 @@ This is very strict focusing on the "Homework" environment which i can order on 
 I'm using oslab.opentlc.com as my jump host.
 
 1) Doing some stuff to get ansible up and running on "oslab.opentlc.com"
+and
+2) Doing some prep on other hosts to
 
 Markuss-MBP:homework mschreie$ ansible-playbook -i initial_hosts --ask-vault-pass -e @mysecrets.yml -e @config.yml 00_prepare_from_notebook.yml
 
 Hint: If the script has issues with registering to CND, just rerun. Worked the second time for me....
-
-## [root@oselab-86ca ocp_homework]# mv /etc/yum.repos.d/open.repo /etc/yum.repos.d/open.repo_notused
-## [root@oselab-86ca ocp_homework]# subscription-manager list.    ##### << find poolid working for all your nodes (mostly my employee sub will do the trick)
-## [root@oselab-86ca ocp_homework]# subscription-manager attach --pool=xxxxxxxxxxxxxxxxxxx
-## [root@oselab-86ca ocp_homework]# subscription-manager repos --disable="*"
-## [root@oselab-86ca ocp_homework]# subscription-manager repos --enable="rhel-7-server-rpms" enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.7-rpms" --enable="rhel-7-fast-datapath-rpms"
-## [root@oselab-86ca ocp_homework]# yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct
-## [root@oselab-86ca ocp_homework]# yum -y update
-## [root@oselab-86ca ocp_homework]# yum install -y ansible git atomic-openshift-utils docker-1.12.6
-
-2) Doing some prep on other hosts to
-## get ansible connect, 
-## subscription working et all
-##   register 
-##   subscription
-## sync this repository (to have hosts file)
-
-
-not yet in a playbook, but the cmds one by one could be:
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m copy -a"src=/etc/rhsm/rhsm.conf dest=/etc/rhsm/rhsm.conf"        
-          ### needed when systes where registerd against some other subscription management system..
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager register --username=mschreie --password="xxxxxx"'
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'mv /etc/yum.repos.d/open.repo /etc/yum.repos.d/open.repo_notused'
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager attach --pool=xxxxxxxx'.     ##### same as above
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager repos --disable="*"'
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a' subscription-manager repos --enable="rhel-7-server-rpms" enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.7-rpms" --enable="rhel-7-fast-datapath-rpms"'
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct'
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum -y update'
-## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum install -y atomic-openshift-utils docker-1.12.6'
 
 
 
@@ -46,13 +19,13 @@ There is an installer to get the wildcard records set up somehow:
 http://www.opentlc.com/download/ose_advanced/resources/3.1/oselab.ha.dns.installer.sh
 I've used that and added a second script to run my own example.com domain (as the one provides has issues, people don't fix).
 
-dns_installer.sh <- installs dns, configures dns to serve wildcard-record
+10_dns_installer.sh <- installs dns, configures dns to serve wildcard-record
               please adjust "domain" variable to suit your needs
              be carefull rerunning this, as it is quite destructive, you will want the second dns-script to run as well
-create_local_dns.sh <- expands the dns server to also server for example.com and it's reverse domain
+11_create_local_dns.sh <- expands the dns server to also server for example.com and it's reverse domain
 
-[root@oselab-86ca ocp_homework]# dns_installer.sh 
-[root@oselab-86ca ocp_homework]# create_local_dns.sh 
+[root@oselab-86ca ocp_homework]# 10_dns_installer.sh 
+[root@oselab-86ca ocp_homework]# 11_create_local_dns.sh 
 
 4) NOW Ansible is working
 you will always match to the "hosts" file provided in this repository

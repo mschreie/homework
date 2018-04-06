@@ -63,6 +63,7 @@ jumphost_packages:
   - psacct
   - atomic-openshift-utils
   - tmux
+  - bind
 
 
 lb_packages:
