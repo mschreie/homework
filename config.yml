@@ -1,0 +1,151 @@
+jumphost_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.9-rpms
+  - rhel-7-fast-datapath-rpms
+  - rhel-7-server-ansible-2.4-rpms
+
+lb_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.9-rpms
+  - rhel-7-fast-datapath-rpms
+  - rhel-7-server-ansible-2.4-rpms
+
+masters_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.9-rpms
+  - rhel-7-fast-datapath-rpms
+  - rhel-7-server-ansible-2.4-rpms
+
+infra_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.9-rpms
+  - rhel-7-fast-datapath-rpms
+  - rhel-7-server-ansible-2.4-rpms
+
+nodes_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.9-rpms
+  - rhel-7-fast-datapath-rpms
+  - rhel-7-server-ansible-2.4-rpms
+
+nfs_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.9-rpms
+  - rhel-7-fast-datapath-rpms
+  - rhel-7-server-ansible-2.4-rpms
+
+
+rest_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.9-rpms
+  - rhel-7-fast-datapath-rpms
+  - rhel-7-server-ansible-2.4-rpms
+
+
+
+jumphost_packages:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+  - atomic-openshift-utils
+  - tmux
+
+
+lb_packages:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+  - atomic-openshift-utils
+  - docker-1.13.1
+
+masters_packages:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+  - atomic-openshift-utils
+  - docker-1.13.1
+
+infra_packages:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+  - atomic-openshift-utils
+  - docker-1.13.1
+
+nodes_packages:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+  - atomic-openshift-utils
+  - docker-1.13.1
+
+nfs_packages:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+  - atomic-openshift-utils
+  - docker-1.13.1
+
+rest_packages:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+  - atomic-openshift-utils
+  - docker-1.13.1
+

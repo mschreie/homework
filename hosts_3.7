@@ -15,10 +15,6 @@ deployment_type=openshift-enterprise
 containerized=false
 openshift_disable_check="disk_availability,memory_availability,docker_image_availability"
 
-# new for 3.9, enable ntp via OCP installation
-openshift_clock_enabled=true
-
-
 # default project node selector
 osm_default_node_selector='env=app'
 

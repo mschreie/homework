@@ -1,0 +1,22 @@
+---
+- name: prepare jump host to deploy openshift from there
+  hosts: jumphost
+  become: true
+  pre_tasks:
+    - name: Verify Ansible meets minimal version requirements.
+      assert:
+        that: "ansible_version.full is version_compare('2.3', '>=')"
+        msg: >
+          "You must update Ansible to at least 2.3 to use the wait_for_connection module"
+  roles: 
+  - preprep_jumphost
+  - subscribe_yum
+  - prep_git
+
+- name: prepare all hosts 
+  hosts: OSEv3
+  become: true
+  roles:
+  - subscribe_yum
+
+

@@ -1,0 +1,3 @@
+repos: "{{ infra_repos }}"
+packages: "{{ infra_packages }}"
+

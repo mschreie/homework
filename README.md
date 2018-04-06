@@ -5,36 +5,39 @@ This is very strict focusing on the "Homework" environment which i can order on 
 I'm using oslab.opentlc.com as my jump host.
 
 1) Doing some stuff to get ansible up and running on "oslab.opentlc.com"
-[root@oselab-86ca ocp_homework]# subscription-manager register --username=mschreie --password=‘xxxxxx'
-[root@oselab-86ca ocp_homework]# mv /etc/yum.repos.d/open.repo /etc/yum.repos.d/open.repo_notused
-[root@oselab-86ca ocp_homework]# subscription-manager list.    ##### << find poolid working for all your nodes (mostly my employee sub will do the trick)
-[root@oselab-86ca ocp_homework]# subscription-manager attach --pool=xxxxxxxxxxxxxxxxxxx
-[root@oselab-86ca ocp_homework]# subscription-manager repos --disable="*"
-[root@oselab-86ca ocp_homework]# subscription-manager repos --enable="rhel-7-server-rpms" enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.7-rpms" --enable="rhel-7-fast-datapath-rpms"
-[root@oselab-86ca ocp_homework]# yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct
-[root@oselab-86ca ocp_homework]# yum -y update
-[root@oselab-86ca ocp_homework]# yum install -y ansible git atomic-openshift-utils docker-1.12.6
 
-2) Doing some prep on other hosts to get ansible connect, subscription working et all
-sync this repository (to have hosts file)
-.. TBD
+Markuss-MBP:homework mschreie$ ansible-playbook -i initial_hosts --ask-vault-pass -e @mysecrets.yml -e @config.yml 00_prepare_from_notebook.yml
 
-register 
-.. TBD
-subscription
-.. TBD
+Hint: If the script has issues with registering to CND, just rerun. Worked the second time for me....
+
+## [root@oselab-86ca ocp_homework]# mv /etc/yum.repos.d/open.repo /etc/yum.repos.d/open.repo_notused
+## [root@oselab-86ca ocp_homework]# subscription-manager list.    ##### << find poolid working for all your nodes (mostly my employee sub will do the trick)
+## [root@oselab-86ca ocp_homework]# subscription-manager attach --pool=xxxxxxxxxxxxxxxxxxx
+## [root@oselab-86ca ocp_homework]# subscription-manager repos --disable="*"
+## [root@oselab-86ca ocp_homework]# subscription-manager repos --enable="rhel-7-server-rpms" enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.7-rpms" --enable="rhel-7-fast-datapath-rpms"
+## [root@oselab-86ca ocp_homework]# yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct
+## [root@oselab-86ca ocp_homework]# yum -y update
+## [root@oselab-86ca ocp_homework]# yum install -y ansible git atomic-openshift-utils docker-1.12.6
+
+2) Doing some prep on other hosts to
+## get ansible connect, 
+## subscription working et all
+##   register 
+##   subscription
+## sync this repository (to have hosts file)
+
 
 not yet in a playbook, but the cmds one by one could be:
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m copy -a"src=/etc/rhsm/rhsm.conf dest=/etc/rhsm/rhsm.conf"        
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m copy -a"src=/etc/rhsm/rhsm.conf dest=/etc/rhsm/rhsm.conf"        
           ### needed when systes where registerd against some other subscription management system..
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager register --username=mschreie --password="xxxxxx"'
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'mv /etc/yum.repos.d/open.repo /etc/yum.repos.d/open.repo_notused'
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager attach --pool=xxxxxxxx'.     ##### same as above
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager repos --disable="*"'
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a' subscription-manager repos --enable="rhel-7-server-rpms" enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.7-rpms" --enable="rhel-7-fast-datapath-rpms"'
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct'
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum -y update'
-[root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum install -y atomic-openshift-utils docker-1.12.6'
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager register --username=mschreie --password="xxxxxx"'
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'mv /etc/yum.repos.d/open.repo /etc/yum.repos.d/open.repo_notused'
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager attach --pool=xxxxxxxx'.     ##### same as above
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'subscription-manager repos --disable="*"'
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a' subscription-manager repos --enable="rhel-7-server-rpms" enable="rhel-7-server-extras-rpms" --enable="rhel-7-server-ose-3.7-rpms" --enable="rhel-7-fast-datapath-rpms"'
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum install -y wget git net-tools bind-utils iptables-services bridge-utils bash-completion kexec-tools sos psacct'
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum -y update'
+## [root@oselab-86ca ocp_homework]# ansible -i hosts all -m shell -a'yum install -y atomic-openshift-utils docker-1.12.6'
 
 
 
@@ -58,8 +61,8 @@ ansible -i hosts all .....
 or 
 ansible-playbook -i hosts ....yml
 
-5) get subscriptions on all machines 
-to be automated yet
+## 5) get subscriptions on all machines 
+## to be automated yet
 
 6) some additional preparation
   - timezone

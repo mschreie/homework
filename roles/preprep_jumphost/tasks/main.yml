@@ -1,0 +1,40 @@
+---
+# tasks file for preprep_jumphost
+- name:  fetch ssh-key of root
+  fetch:
+    src: "/root/.ssh/{{ item }}"
+    dest: ./tmp/
+    flat: yes
+  with_items:
+    - id_rsa
+    - id_rsa.pub 
+    - known_hosts
+  become: yes
+
+  
+- name: assure existance of .ssh directory
+  file:
+    path: .ssh
+    state: directory
+    mode: 0700
+  become: no
+
+- name:  put ssh-files for me 
+  copy:
+    src: "./tmp/{{ item }}"
+    dest: .ssh/
+  with_items:
+    - id_rsa.pub 
+    - known_hosts
+  become: no
+
+- name:  put ssh-key for me
+  copy:
+    src: "./tmp/{{ item }}"
+    dest: .ssh/
+    mode: 0600
+  with_items:
+    - id_rsa
+  become: no
+
+  

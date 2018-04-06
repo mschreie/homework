@@ -1,0 +1,121 @@
+---
+# tasks file for subscribe_yum
+- name: assure we point to Red Hat CDN
+  copy:
+    src: files/rhsm.conf
+    dest: /etc/rhsm/rhsm.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: register to Red Hat CDN
+  redhat_subscription:
+    state: present
+    username: "{{ cdn_user }}"
+    password: "{{ cdn_passwd }}"
+    ## auto_attach: no
+    pool: "Employee SKU"
+
+- name: remove repository-file provided from lab environment
+  file: 
+    path:  /etc/yum.repos.d/open.repo
+    state: absent
+   
+- name: get current enabled repos
+  shell: >
+    subscription-manager repos |
+    awk 'BEGIN { print "repos:" } /^Enabled:/ { print "  - repo: \"" f "\"\n    enabled: \"" $2 "\"" } /Repo ID:/{ f=$3 }'
+  register: current_repos
+  changed_when: false
+  when: repos is defined
+
+- debug: 
+    msg: "{{ (current_repos.stdout|from_yaml).repos|selectattr('enabled','match','1')|map(attribute='repo')|list }}"
+    verbosity: 2
+
+- name: store repo info as fact
+  set_fact:
+    disable_repos: "{{ (current_repos.stdout|from_yaml).repos|selectattr('enabled','match','1')|map(attribute='repo')|list|difference(repos) }}"
+    enable_repos: "{{ (current_repos.stdout|from_yaml).repos|selectattr('enabled','match','0')|map(attribute='repo')|list|intersect(repos) }}"
+  when: repos is defined
+
+- debug: 
+    var: disable_repos
+    verbosity: 2
+- debug: 
+    var: enable_repos
+    verbosity: 2
+
+- name: enable & disable repos
+  shell: >
+    subscription-manager repos
+    {% for repo in disable_repos %}--disable="{{ repo }}" {% endfor %}
+    {% for repo in enable_repos %}--enable="{{ repo }}" {% endfor %}
+  when: repos is defined and (disable_repos|length > 0 or enable_repos|length > 0)
+
+
+- name: install ocp needed packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - "{{ packages }}"
+  register: prerequisites
+  async: 600
+  poll: 0
+  when: not ( packages is undefined or packages is none or packages | trim == '')
+
+- debug: 
+    var: prerequisites
+    verbosity: 2
+
+- name: poll for install prereqs complete
+  async_status: jid={{ prerequisites.results.0.ansible_job_id }}
+  register: job_result
+  until: job_result.finished
+  retries: 60
+  delay: 10
+  when: not prerequisites is skipped
+
+- name: check if initial upgrade has happened
+  stat: path=/.initial_upgrade_complete
+  register: upgrade_complete
+
+- name: upgrade packages
+  yum: name=* state=latest
+  # don't ignore errors anymore
+  # was - OpenShift requires older  version of Docker, ensure that a failure doesn't stop the process
+  #failed_when: false
+  # seems like the SSH connection dies when packages are upgraded... let's try async+polling
+  async: 600
+  poll: 0
+  when: not upgrade_complete.stat.exists
+  register: upgrade_packages
+
+- debug: 
+    var: upgrade_packages
+    verbosity: 2
+
+- name: poll for upgrade packages complete
+  async_status: jid={{ upgrade_packages.ansible_job_id }}
+  register: job_result
+  until: job_result.finished
+  retries: 60
+  delay: 10
+  when: not upgrade_complete.stat.exists
+
+- name: note that initial upgrade has happened
+  file: path=/.initial_upgrade_complete state=touch
+  when: not upgrade_complete.stat.exists
+
+- name: reboot server
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: prerequisites is changed or enable is changed or disable is changed
+
+- name: waiting for server to come back
+  wait_for_connection:
+  when: prerequisites is changed or enable is changed or disable is changed
+

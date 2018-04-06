@@ -1,0 +1,3 @@
+repos: "{{ lb_repos }}"
+packages: "{{ lb_packages }}"
+
