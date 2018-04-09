@@ -1,7 +1,7 @@
 #!/bin/bash
 
 guid=`hostname|cut -f2 -d-|cut -f1 -d.`
-guid=8226
+guid=e7f9
 yum -y install bind bind-utils       # << installed via 00_prep already
 systemctl enable named
 systemctl stop named

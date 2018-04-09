@@ -12,6 +12,13 @@ Markuss-MBP:projects mschreie$ git clone https://github.com/mschreie/homework
 Markuss-MBP:homework mschreie$ cd homework
 Markuss-MBP:projects mschreie$ git pull
 
+Markuss-MBP:projects mschreie$ ansible-vault create mysecrets.yml 
+.... create a secrets file comparable to mysecrets.example with your crdentials
+
+Markuss-MBP:projects mschreie$ vi 10_dns_installer.sh hosts initial_hosts
+... change Environment-ID to the correct one
+
+
 Markuss-MBP:homework mschreie$ ansible-playbook -i initial_hosts --ask-vault-pass -e @mysecrets.yml -e @config.yml 00_prepare_from_notebook.yml
 
          Hint: If the script has issues with registering to CND, just rerun. Worked the second time for me....
