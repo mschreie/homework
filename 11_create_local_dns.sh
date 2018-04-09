@@ -69,7 +69,7 @@ function add_forwarders_to_named_conf {
 ## create forward zone
 zone_head $DOM > $zone_file
 forw_record $NAMESERVER >> $zone_file
-awk '/'$DOM'/ { print $1 }' $ocp_hosts_file | sed -e 's/#//g' | while read name
+awk '/'$DOM'/ { print $1 }' $ocp_hosts_file | sed -e 's/#//g'  -e '/^$/d' | sort -u | while read name
 do
  forw_record $name >> $zone_file
 done
@@ -77,7 +77,7 @@ done
 ## create reverse zone
 zone_head $REV > $reverse_zone_file
 rev_record $NAMESERVER >> $reverse_zone_file
-awk '/'$DOM'/ { print $1 }' $ocp_hosts_file | sed -e 's/#//g' | while read name
+awk '/'$DOM'/ { print $1 }' $ocp_hosts_file | sed -e 's/#//g'  -e '/^$/d' | sort -u | while read name
 do
  rev_record $name >> $reverse_zone_file
 done
