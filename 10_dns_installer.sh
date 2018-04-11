@@ -16,8 +16,9 @@ systemctl stop named
 infraIP1=`host infranode1-$guid.oslab.opentlc.com 52.2.39.130  | grep $guid | awk '{ print $4 }'`
 infraIP2=`host infranode2-$guid.oslab.opentlc.com 52.2.39.130  | grep $guid | awk '{ print $4 }'`
 infraIP3=`host infranode3-$guid.oslab.opentlc.com 52.2.39.130  | grep $guid | awk '{ print $4 }'`
+domain="apps.$guid.oslab.opentlc.com"
 ### domain="cloudapps-$guid.oslab.opentlc.com"
-domain="apps.$guid.example.opentlc.com"
+### domain="apps.$guid.example.opentlc.com" #### don't know where this domain comes from, BUT not used elswhere
 
 echo infraIP 1  is $infraIP1 | tee -a /root/.dns.installer.txt
 echo infraIP 2  is $infraIP2 | tee -a /root/.dns.installer.txt

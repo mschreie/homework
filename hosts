@@ -146,8 +146,8 @@ openshift_metrics_heapster_nodeselector={"region":"infra"}
 
 # Enable cluster logging
 
-##openshift_logging_install_logging=True
-openshift_logging_install_logging=False
+openshift_logging_install_logging=True
+openshift_logging_es_pvc_dynamic=false
 
 openshift_logging_storage_kind=nfs
 openshift_logging_storage_access_modes=['ReadWriteOnce']
