@@ -10,6 +10,13 @@ pipeline {
                     }
                  }
               }
+              script {
+                 openshift.withCluster() {
+                    openshift.withProject( 'dev' ) {
+                       openshift.newApp('jboss-eap70-openshift:1.6~https://github.com/wkulhanek/openshift-tasks')
+                    }
+                 }
+              }
            }
         }
     }
