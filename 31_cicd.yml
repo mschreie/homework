@@ -19,6 +19,7 @@
       oc adm policy add-role-to-user edit bob
       sleep 2
       oc new-app jenkins-persistent --param ENABLE_OAUTH=true --param MEMORY_LIMIT=2Gi --param VOLUME_CAPACITY=4G
+      oc adm pod-network make-projects-global jenkins
   - name: set up dev project
     shell: | 
       oc new-project dev
