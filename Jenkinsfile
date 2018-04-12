@@ -17,7 +17,7 @@ pipeline {
            steps {
               openshiftDeploy depCfg: 'openshift-tasks', namespace: 'dev', verbose: 'false', waitTime: '', waitUnit: 'sec'
               openshiftVerifyDeployment depCfg: 'openshift-tasks', namespace: 'dev', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'
-              openshiftVerifyService namespace: 'dev', svcName: 'openshift-tasks', verbose: 'false', waitTime: '5', waitUnit: 'sec'
+              openshiftVerifyService namespace: 'dev', svcName: 'openshift-tasks', verbose: 'false', retryCount: '5', verbose: 'true'
            }
         }
         stage('acknowledge prod') {
