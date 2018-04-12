@@ -27,7 +27,7 @@
       oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n dev
       oc adm policy add-role-to-user edit alice
       oc adm policy add-role-to-user edit bob
-      oc new-app jboss-eap70-openshift:1.6~https://github.com/wkulhanek/openshift-tasks
+      oc new-app jboss-eap70-openshift:1.6~https://github.com/mschreie/openshift-tasks
       oc expose svc openshift-tasks
       oc set triggers dc openshift-tasks --manual
   - name: set up prod project
@@ -37,6 +37,3 @@
       oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n prod
       oc adm policy add-role-to-user edit alice
       oc adm policy add-role-to-user edit bob
-      oc new-app jboss-eap70-openshift:1.6~https://github.com/wkulhanek/openshift-tasks
-      oc expose svc openshift-tasks
-      oc set triggers dc openshift-tasks --manual

@@ -107,11 +107,20 @@ browse to: https://loadbalancer1-8226.oslab.opentlc.com:8443/console
 
 
 
+6) prepare private openshift-tasks repo
+login to github.com
+browse to https://github.com/wkulhanek/openshift-tasks
+and fork this to your own account
+i now have https://github.com/mschreie/openshift-tasks
 
-8) set up jenkins
+7) set up jenkins
 [root@oselab-8226 homework]# ansible-playbook -i hosts  31_cicd.yml
 
+     this script utilizes the git repo url hardcoded
+     you might want to change this
 
+
+------------------
 Needed for the scripts to run:
 hosts   
     this is the standar OCP configuration file -i do not add any parameters here, bus utilize this file as a base for the self created scripts as well.
