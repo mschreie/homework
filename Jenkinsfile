@@ -1,11 +1,13 @@
 pipeline {
-    // agent { docker { image 'maven:3.3.3' } }
+  agent any
     stages {
         stage('build') {
-           script {
-              openshift.withCluster() {
-                 openshift.withProject( 'dev' ) {
-                    echo "Hello from project ${openshift.project()} in cluster ${openshift.cluster()}"
+           steps {
+              script {
+                 openshift.withCluster() {
+                    openshift.withProject( 'dev' ) {
+                       echo "Hello from project ${openshift.project()} in cluster ${openshift.cluster()}"
+                    }
                  }
               }
            }
@@ -13,3 +15,4 @@ pipeline {
     }
 
 }
+
