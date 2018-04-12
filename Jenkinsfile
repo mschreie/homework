@@ -17,7 +17,14 @@ pipeline {
            steps {
               openshiftDeploy depCfg: 'openshift-tasks', namespace: 'dev', verbose: 'false', waitTime: '', waitUnit: 'sec'
               openshiftVerifyDeployment depCfg: 'openshift-tasks', namespace: 'dev', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'
-              openshiftVerifyService namespace: 'dev', svcName: 'openshift-tasks', verbose: 'false'
+              openshiftVerifyService namespace: 'dev', svcName: 'openshift-tasks', verbose: 'false', waitTime: '5', waitUnit: 'sec'
+           }
+        }
+        stage('acknowledge prod') {
+           steps {
+              timeout(time: 3, unit: 'MINUTES') {
+                 input 'Ready for Prof?'
+              }
            }
         }
     }
