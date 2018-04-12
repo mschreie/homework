@@ -17,6 +17,13 @@ pipeline {
                     }
                  }
               }
+              script {
+                 openshift.withCluster() {
+                    openshift.withProject( 'dev' ) {
+                       openshift.expose('svc/openshift-tasks')
+                    }
+                 }
+              }
            }
         }
     }

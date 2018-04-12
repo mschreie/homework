@@ -23,11 +23,11 @@
     shell: | 
       oc new-project dev
       sleep 2
-      oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n dev
+      oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n dev
       oc adm policy add-role-to-user edit alice
       oc adm policy add-role-to-user edit bob
       oc new-project prod
       sleep 2
-      oc policy add-role-to-user edit system:serviceaccount:cicd:jenkins -n prod
+      oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n prod
       oc adm policy add-role-to-user edit alice
       oc adm policy add-role-to-user edit bob
