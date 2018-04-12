@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Dev: Build Tasks') {
            steps {
-              openshiftBuild bldCfg: 'openshift-tasks', namespace: 'devs', showBuildLogs: 'true', verbose: 'false', waitTime: '', waitUnit: 'sec'
+              openshiftBuild bldCfg: 'openshift-tasks', namespace: 'dev', showBuildLogs: 'true', verbose: 'false', waitTime: '', waitUnit: 'sec'
               openshiftVerifyBuild bldCfg: 'openshift-tasks', checkForTriggeredDeployments: 'false', namespace: 'dev', verbose: 'false', waitTime: ''
            }
         }
