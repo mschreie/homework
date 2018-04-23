@@ -42,7 +42,40 @@ Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc
 
 
 [root@oselab-8226 homework]# bash 10_dns_installer.sh 
+     Loaded plugins: search-disabled-repos, subscription-manager
+     rhel-7-fast-datapath-rpms                                                                                           | 4.0 kB  00:00:00     
+     rhel-7-server-ansible-2.5-rpms                                                                                      | 4.0 kB  00:00:00     
+     rhel-7-server-extras-rpms                                                                                           | 3.4 kB  00:00:00     
+     rhel-7-server-ose-3.9-rpms                                                                                          | 4.0 kB  00:00:00     
+     rhel-7-server-rpms                                                                                                  | 3.5 kB  00:00:00     
+     (1/2): rhel-7-server-ose-3.9-rpms/x86_64/updateinfo                                                                 |  56 kB  00:00:00     
+     (2/2): rhel-7-server-ose-3.9-rpms/x86_64/primary_db                                                                 | 286 kB  00:00:00     
+     Package 32:bind-9.9.4-61.el7.x86_64 already installed and latest version
+     Package 32:bind-utils-9.9.4-61.el7.x86_64 already installed and latest version
+     Nothing to do
+     Created symlink from /etc/systemd/system/multi-user.target.wants/named.service to /usr/lib/systemd/system/named.service.
+     infraIP 1 is 35.205.82.22
+     infraIP 2 is 35.205.109.218
+     infraIP 3 is 35.190.200.249
+     guid is 19a2
+     domain is apps.19a2.oslab.opentlc.com
+
+     test.apps.19a2.oslab.opentlc.com. 1 IN	A	35.190.200.249
+     apps.19a2.oslab.opentlc.com. 1	IN	NS	master.apps.19a2.oslab.opentlc.com.
+
+     DNS Setup was successful!
+     Fully Finished the 10_dns_installer.sh script
+     Loaded plugins: search-disabled-repos, subscription-manager
+     Package iptables-services-1.4.21-24.el7.x86_64 already installed and latest version
+     Nothing to do
+     Failed to stop firewalld.service: Unit firewalld.service not loaded.
+     Failed to execute operation: No such file or directory
+     Created symlink from /etc/systemd/system/basic.target.wants/iptables.service to /usr/lib/systemd/system/iptables.service.
+     [root@oselab-19a2 homework]# 
+
+
 [root@oselab-8226 homework]# bash 11_create_local_dns.sh 
+     [root@oselab-8226 homework]# 
 
     There is an installer to get the wildcard records set up somehow:
     http://www.opentlc.com/download/ose_advanced/resources/3.1/oselab.ha.dns.installer.sh

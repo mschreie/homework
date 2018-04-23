@@ -77,7 +77,7 @@ restorecon /etc/named.conf
 
 systemctl start named
 
-dig @127.0.0.1 test.$domain
+dig +noall +answer +authority @127.0.0.1 test.$domain
 
 if [ $? = 0 ]
 then
