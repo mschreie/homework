@@ -117,7 +117,35 @@ Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc
 
      This does the following
        - checks prerequisits
-       - starts teh deployment itself
+       - starts the deployment itself
+
+
+     I ran into an "file not found: /etc/origin/logging/ca.crl.srl" issue
+     and fixed that by the following:
+     [root@oselab-19a2 homework]# cp files/generate_certs.yaml /usr/share/ansible/openshift-ansible/roles/openshift_logging/tasks/generate_certs.yaml    
+     hint: did not automate this, as i'd suggest to check manualy...
+
+
+     [root@oselab-19a2 homework]# diff -w files/generate_certs.yaml /usr/share/ansible/openshift-ansible/roles/openshift_logging/tasks/generate_certs.yaml 
+     101,103c101,103
+     < - name: Checking for ca.crl.srl
+     <   stat: path="{{generated_certs_dir}}/ca.crl.srl"
+     <   register: ca_crl_srl_file
+     ---
+     > - name: Checking for ca.crt.srl
+     >   stat: path="{{generated_certs_dir}}/ca.crt.srl"
+     >   register: ca_cert_srl_file
+     106c106
+     < - copy: content="" dest={{generated_certs_dir}}/ca.crl.srl
+     ---
+     > - copy: content="" dest={{generated_certs_dir}}/ca.crt.srl
+     109c109
+     <     - not ca_crl_srl_file.stat.exists
+     ---
+     >     - not ca_cert_srl_file.stat.exists
+     [root@oselab-19a2 homework]# 
+
+      
 
 4) check ocp installation rudimentary
 
