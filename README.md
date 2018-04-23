@@ -149,7 +149,8 @@ Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc
 
 4) check ocp installation rudimentary
 
-[root@oselab-8226 homework]# oc get nodes
+[root@oselab-8226 homework]# ssh master1.example.com
+[root@master1]# oc get nodes
 browse to: https://loadbalancer1-8226.oslab.opentlc.com:8443/console
 
      This asures minimal functionality 
@@ -159,6 +160,7 @@ browse to: https://loadbalancer1-8226.oslab.opentlc.com:8443/console
 
 5) run post install tasks
 
+[root@master1]# exit
 [root@oselab-8226 homework]# ansible-playbook -i hosts  30_post_deploy.yml
      utilizes: create_pv_definition.sh
 
