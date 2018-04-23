@@ -34,14 +34,15 @@ Markuss-MBP:homework mschreie$ ansible-playbook -i initial_hosts --ask-vault-pas
 2) do further setup initiated from jumphost in the environment
 
 Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc.com
-[root@oselab-8226 homework]# sudo -i; cd /root/project/homework
+[.....@oselab-8226 ]$ sudo -i
+[root@oselab-8226 homework]# cd /root/project/homework
 [root@oselab-8226 homework]# git pull
      
     This logs in to jumphost and pulls latest files from github
 
 
-[root@oselab-8226 homework]# 10_dns_installer.sh 
-[root@oselab-8226 homework]# 11_create_local_dns.sh 
+[root@oselab-8226 homework]# bash 10_dns_installer.sh 
+[root@oselab-8226 homework]# bash 11_create_local_dns.sh 
 
     There is an installer to get the wildcard records set up somehow:
     http://www.opentlc.com/download/ose_advanced/resources/3.1/oselab.ha.dns.installer.sh
