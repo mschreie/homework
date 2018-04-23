@@ -31,6 +31,13 @@
       oc expose svc openshift-tasks
       oc set triggers dc openshift-tasks --manual
       oc policy add-role-to-user system:image-puller system:serviceaccount:prod:default -n dev
+  - name: copy application-template to host
+    copy:
+      src: files/template_openshift-tasks-prod.xml
+      dest: template_openshift-tasks-prod.xml
+      owner: root
+      group: root
+      mode: 0644
   - name: set up prod project
     shell: | 
       oc new-project prod
@@ -38,9 +45,10 @@
       oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n prod
       oc adm policy add-role-to-user edit alice
       oc adm policy add-role-to-user edit bob
-      oc new-app jboss-eap70-openshift:1.6~https://github.com/mschreie/openshift-tasks
-      oc expose svc openshift-tasks
+      oc process -f  template_openshift-tasks-prod.xml | oc create -f - 
+      ## oc new-app jboss-eap70-openshift:1.6~https://github.com/mschreie/openshift-tasks
+      ## oc expose svc openshift-tasks
       oc set triggers dc openshift-tasks --manual
-      oc delete is/openshift-tasks -n prod
-      oc delete bc/openshift-tasks -n prod
-      oc delete builds/openshift-tasks-1 -n prod
+      ## oc delete is/openshift-tasks -n prod
+      ## oc delete bc/openshift-tasks -n prod
+      ## oc delete builds/openshift-tasks-1 -n prod
