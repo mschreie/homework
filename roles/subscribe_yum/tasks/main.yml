@@ -82,7 +82,7 @@
   register: upgrade_complete
 
 - name: upgrade packages
-  yum: name=* state=latest
+  yum: name=* state=latest exclude=kernel* disable_gpg_check=yes
   # don't ignore errors anymore
   # was - OpenShift requires older  version of Docker, ensure that a failure doesn't stop the process
   #failed_when: false
@@ -107,6 +107,9 @@
 - name: note that initial upgrade has happened
   file: path=/.initial_upgrade_complete state=touch
   when: not upgrade_complete.stat.exists
+
+#- fail:
+#    msg: "Stopping before reboot - as it will not boot"
 
 - name: reboot server
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"

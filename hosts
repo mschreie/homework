@@ -52,10 +52,10 @@ openshift_master_api_port=443
 openshift_master_console_port=443
 
 openshift_master_cluster_method=native
-openshift_master_cluster_hostname=loadbalancer1-e7f9.oslab.opentlc.com
-openshift_master_cluster_public_hostname=loadbalancer1-e7f9.oslab.opentlc.com
+openshift_master_cluster_hostname=loadbalancer1-19a2.oslab.opentlc.com
+openshift_master_cluster_public_hostname=loadbalancer1-19a2.oslab.opentlc.com
 # XXXXXXXXXXXX
-openshift_master_default_subdomain=apps.e7f9.oslab.opentlc.com
+openshift_master_default_subdomain=apps.19a2.oslab.opentlc.com
 #openshift_master_ca_certificate={'certfile': '/root/intermediate_ca.crt', 'keyfile': '/root/intermediate_ca.key'}
 openshift_master_overwrite_named_certificates=True
 
@@ -102,7 +102,7 @@ openshift_metrics_storage_volume_name=metrics
 openshift_metrics_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage': 'metrics'}
 
-#openshift_master_metrics_public_url=https://hawkular-metrics.apps.e7f9.example.opentlc.com/hawkular/metrics
+#openshift_master_metrics_public_url=https://hawkular-metrics.apps.19a2.example.opentlc.com/hawkular/metrics
 
 ## Add Prometheus Metrics:
 
@@ -158,14 +158,14 @@ openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage': 'logging'}
 
 # The external host name for web clients to reach Kibana.
-openshift_logging_kibana_hostname=kibana.apps.e7f9.example.opentlc.com
+openshift_logging_kibana_hostname=kibana.apps.19a2.example.opentlc.com
 
 # added this cause i could not log into kibana (redirecting to master1....)
 # also see: https://access.redhat.com/solutions/3232581
 openshift_logging_master_url=https://{{ openshift_master_cluster_public_hostname }}
 openshift_logging_master_public_url=https://{{ openshift_master_cluster_public_hostname }}
-#### openshift_logging_master_url=https://kibana.apps.e7f9.example.opentlc.com
-#### openshift_logging_master_public_url=https://kibana.apps.e7f9.example.opentlc.com
+#### openshift_logging_master_url=https://kibana.apps.19a2.example.opentlc.com
+#### openshift_logging_master_public_url=https://kibana.apps.19a2.example.opentlc.com
 
 openshift_logging_es_cluster_size=1
 
@@ -175,7 +175,7 @@ openshift_logging_curator_nodeselector={"region":"infra"}
 
 
 openshift_logging_es_allow_external=True
-openshift_logging_es_hostname=elasticsearch.apps.e7f9.example.opentlc.com
+openshift_logging_es_hostname=elasticsearch.apps.19a2.example.opentlc.com
 
 
 ###########################################################################
@@ -246,19 +246,19 @@ master3.example.com host_zone=eu-central-1b
 [nodes]
 ## These are the masters
 ## with 3.9 masters should be schedulable ... (which would be the default)
-### master1.example.com openshift_hostname=master1.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': 'e7f9', 'zone': 'eu-central-1b'}"
-master1.example.com openshift_hostname=master1.example.com openshift_node_labels="{'logging':'true','cluster': 'e7f9', 'zone': 'eu-central-1b'}"
-master2.example.com openshift_hostname=master2.example.com openshift_node_labels="{'logging':'true','cluster': 'e7f9', 'zone': 'eu-central-1b'}"
-master3.example.com openshift_hostname=master3.example.com openshift_node_labels="{'logging':'true','cluster': 'e7f9', 'zone': 'eu-central-1b'}"
+### master1.example.com openshift_hostname=master1.example.com openshift_node_labels="{'logging':'true','openshift_schedulable':'False','cluster': '19a2', 'zone': 'eu-central-1b'}"
+master1.example.com openshift_hostname=master1.example.com openshift_node_labels="{'logging':'true','cluster': '19a2', 'zone': 'eu-central-1b'}"
+master2.example.com openshift_hostname=master2.example.com openshift_node_labels="{'logging':'true','cluster': '19a2', 'zone': 'eu-central-1b'}"
+master3.example.com openshift_hostname=master3.example.com openshift_node_labels="{'logging':'true','cluster': '19a2', 'zone': 'eu-central-1b'}"
 
 ## These are infranodes
-infranode3.example.com openshift_hostname=infranode3.example.com  openshift_node_labels="{'logging':'true','cluster': 'e7f9', 'region':'infra', 'zone': 'eu-central-1b'}"
-infranode2.example.com openshift_hostname=infranode2.example.com  openshift_node_labels="{'logging':'true','cluster': 'e7f9', 'region':'infra', 'zone': 'eu-central-1b'}"
+infranode3.example.com openshift_hostname=infranode3.example.com  openshift_node_labels="{'logging':'true','cluster': '19a2', 'region':'infra', 'zone': 'eu-central-1b'}"
+infranode2.example.com openshift_hostname=infranode2.example.com  openshift_node_labels="{'logging':'true','cluster': '19a2', 'region':'infra', 'zone': 'eu-central-1b'}"
 
 ## These are regular nodes
-node1.example.com openshift_hostname=node1.example.com  openshift_node_labels="{'logging':'true','cluster': 'e7f9', 'region':'app', 'zone': 'eu-central-1b'}"
-node2.example.com openshift_hostname=node2.example.com  openshift_node_labels="{'logging':'true','cluster': 'e7f9', 'region':'app', 'zone': 'eu-central-1b'}"
-node3.example.com openshift_hostname=node3.example.com  openshift_node_labels="{'logging':'true','cluster': 'e7f9', 'region':'app', 'zone': 'eu-central-1b'}"
+node1.example.com openshift_hostname=node1.example.com  openshift_node_labels="{'logging':'true','cluster': '19a2', 'region':'app', 'zone': 'eu-central-1b'}"
+node2.example.com openshift_hostname=node2.example.com  openshift_node_labels="{'logging':'true','cluster': '19a2', 'region':'app', 'zone': 'eu-central-1b'}"
+node3.example.com openshift_hostname=node3.example.com  openshift_node_labels="{'logging':'true','cluster': '19a2', 'region':'app', 'zone': 'eu-central-1b'}"
 
 
 [nfs]
