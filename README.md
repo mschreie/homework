@@ -105,14 +105,13 @@ Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc
 
 3) do ocp installation
 
-[root@oselab-8226 homework]#  tmux
+[root@oselab-8226 homework]# tmux
 [root@oselab-8226 homework]# tmux pipe-pane -o 'cat >>~/tmux_output.#S:#I-#P'
      This does the following
        - start tmux 
        - start tmux logging
 [root@oselab-8226 homework]# ansible-playbook -i hosts /usr/share/ansible/openshift-ansible/playbooks/prerequisites.yml
 [root@oselab-8226 homework]# ansible-playbook -i hosts /usr/share/ansible/openshift-ansible/playbooks/deploy_cluster.yml
-
     
          Hint: Both scripts take quite some time....
 
