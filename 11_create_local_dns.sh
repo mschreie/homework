@@ -94,4 +94,4 @@ grep -q "forwarders" $named_conf || {
     chgrp named $named_conf
 }
 
-sytemctl restart named
+systemctl restart named

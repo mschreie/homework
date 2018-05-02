@@ -49,13 +49,13 @@ Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc
 
 [root@oselab-8226 homework]# bash 10_dns_installer.sh 
      Loaded plugins: search-disabled-repos, subscription-manager
-     rhel-7-fast-datapath-rpms                                                                                           | 4.0 kB  00:00:00     
-     rhel-7-server-ansible-2.5-rpms                                                                                      | 4.0 kB  00:00:00     
-     rhel-7-server-extras-rpms                                                                                           | 3.4 kB  00:00:00     
-     rhel-7-server-ose-3.9-rpms                                                                                          | 4.0 kB  00:00:00     
-     rhel-7-server-rpms                                                                                                  | 3.5 kB  00:00:00     
-     (1/2): rhel-7-server-ose-3.9-rpms/x86_64/updateinfo                                                                 |  56 kB  00:00:00     
-     (2/2): rhel-7-server-ose-3.9-rpms/x86_64/primary_db                                                                 | 286 kB  00:00:00     
+     rhel-7-fast-datapath-rpms                                                   | 4.0 kB  00:00:00     
+     rhel-7-server-ansible-2.5-rpms                                              | 4.0 kB  00:00:00     
+     rhel-7-server-extras-rpms                                                   | 3.4 kB  00:00:00     
+     rhel-7-server-ose-3.9-rpms                                                  | 4.0 kB  00:00:00     
+     rhel-7-server-rpms                                                          | 3.5 kB  00:00:00     
+     (1/2): rhel-7-server-ose-3.9-rpms/x86_64/updateinfo                         |  56 kB  00:00:00     
+     (2/2): rhel-7-server-ose-3.9-rpms/x86_64/primary_db                         | 286 kB  00:00:00     
      Package 32:bind-9.9.4-61.el7.x86_64 already installed and latest version
      Package 32:bind-utils-9.9.4-61.el7.x86_64 already installed and latest version
      Nothing to do
