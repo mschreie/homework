@@ -150,3 +150,20 @@ rest_packages:
   - atomic-openshift-utils
   - docker-1.13.1
 
+local_dns_entries:
+  - cakephp-ex-alice1.apps.{{ guid }}.oslab.opentlc.com
+  - jenkins-alice1.apps.{{ guid }}.oslab.opentlc.com
+  - parksmap-alice1.apps.{{ guid }}.oslab.opentlc.com
+  - kibana.apps.{{ guid }}.oslab.opentlc.com
+  - master1.example.com
+  - hawkular-metrics.apps.{{ guid }}.oslab.opentlc.com
+  - nexus3-nexus.apps.{{ guid }}.oslab.opentlc.com
+  - jenkins-cicd.apps.{{ guid }}.oslab.opentlc.com
+  - openshift-tasks-ocp-tasks-app.apps.{{ guid }}.oslab.opentlc.com
+  - jenkins-bob1.apps.{{ guid }}.oslab.opentlc.com
+  - parksmap-bob1.apps.{{ guid }}.oslab.opentlc.com
+  - jenkins-jenkins.apps.{{ guid }}.oslab.opentlc.com
+  - elasticsearch.apps.{{ guid }}.oslab.opentlc.com
+  - kibana.apps.{{ guid }}.oslab.opentlc.com
+  - openshift-tasks-prod.apps.{{ guid }}.oslab.opentlc.com
+  - openshift-tasks-dev.apps.{{ guid }}.oslab.opentlc.com

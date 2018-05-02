@@ -17,6 +17,7 @@ Markuss-MBP:projects mschreie$ ansible-vault create mysecrets.yml
 
 Markuss-MBP:projects mschreie$ vi 10_dns_installer.sh hosts initial_hosts
 ... change Environment-ID to the correct one
+... also change external_ip of infranodes in initial_hosts
 
 
 Markuss-MBP:homework mschreie$ ansible-playbook -i initial_hosts --ask-vault-pass -e @mysecrets.yml -e @config.yml 00_prepare_from_notebook.yml
@@ -31,6 +32,11 @@ Markuss-MBP:homework mschreie$ ansible-playbook -i initial_hosts --ask-vault-pas
        - yum update
        - downloads git-repository to jump-host
       
+Markuss-MBP:homework mschreie$ ansible-playbook -i initial_hosts --ask-vault-pass -e @mysecrets.yml -e @config.yml 01_prepare_notebook.yml
+
+     This does the following
+       - add fqdn into local /etc/hosts to reach urls with browser from you notebook
+
 2) do further setup initiated from jumphost in the environment
 
 Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc.com

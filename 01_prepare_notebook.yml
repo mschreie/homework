@@ -1,0 +1,20 @@
+---
+- name: prepare notebook itself
+  hosts: localhost
+  become: true
+  pre_tasks:
+    - name: Verify Ansible meets minimal version requirements.
+      assert:
+        that: "ansible_version.full is version_compare('2.3', '>=')"
+        msg: >
+          "You must update Ansible to at least 2.3 to use the wait_for_connection module"
+  tasks: 
+
+  - name: adjust local /etc/hosts file
+    become: true
+    blockinfile:
+       path: /etc/hosts
+       block: |
+         {% for infrahost in groups['infra'] %}{% for fqdn in local_dns_entries %}{{ hostvars[infrahost]['external_ip'] }} {{ fqdn }} 
+         {% endfor %}{% endfor %}
+       marker: "# {mark} ANSIBLE MANAGED BLOCK "

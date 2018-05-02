@@ -1,13 +1,18 @@
+[all:vars]
+guid=1db2
+
 [OSEv3:vars]
 ansible_user=root 
-ansible_ssh_common_args="-i ./tmp/id_rsa -o ProxyCommand='ssh -W %h:%p -q mschreie-redhat.com@oselab-19a2.oslab.opentlc.com' -o StrictHostKeyChecking=no"
+ansible_ssh_common_args="-i ./tmp/id_rsa -C -o ControlMaster=auto -o ControlPersist=60s -o ProxyCommand='ssh -W %h:%p -q mschreie-redhat.com@oselab-1db2.oslab.opentlc.com' -o StrictHostKeyChecking=no"
+ansible_ssh_pipelining=true
+ansible_ssh_retries=3
 
 
 [jumphost]
-oselab-19a2.oslab.opentlc.com ansible_user=mschreie-redhat.com
+oselab-1db2.oslab.opentlc.com ansible_user=mschreie-redhat.com
 
 [localhosts]
-localhost ansible_become=no
+localhost ansible_become=true ansible_connection=local
 
 
 [OSEv3:children]
@@ -28,8 +33,8 @@ master3.example.com
 
 
 [infra]
-infranode3.example.com
-infranode2.example.com
+infranode3.example.com  external_ip=35.233.83.234
+infranode2.example.com  external_ip=35.233.102.120
 
 [nodes]
 node1.example.com 
