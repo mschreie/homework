@@ -1,0 +1,16 @@
+# This configures HPA after having created openshift-tasks application via the jenkins pipeline
+---
+- hosts: master1.example.com
+  become: yes
+  tasks:
+  - name: copy limit_range definition to host
+    template:
+      src: files/limit_range.xml.j2
+      dest: limit_range.xml
+      owner: root
+      group: root
+      mode: 0644
+  - name: activate horizontal pod autoscaler
+    shell: | 
+      oc create -f limit_range.xml -n prod 
+      oc  autoscale dc/openshift-tasks --min 1 --max 5 --cpu-percent=80 -n prod

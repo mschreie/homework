@@ -104,48 +104,49 @@ openshift_metrics_storage_nfs_options='*(rw,root_squash)'
 openshift_metrics_storage_volume_name=metrics
 openshift_metrics_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage': 'metrics'}
+# added this for HPA troubleshooting
+openshift_metrics_hawkular_hostname=hawkular-metrics.apps.1db2.example.opentlc.com/hawkular/metrics
 
 #openshift_master_metrics_public_url=https://hawkular-metrics.apps.1db2.example.opentlc.com/hawkular/metrics
+
+openshift_metrics_cassandra_nodeselector={"region":"infra"}
+openshift_metrics_hawkular_nodeselector={"region":"infra"}
+openshift_metrics_heapster_nodeselector={"region":"infra"}
 
 ## Add Prometheus Metrics:
 
 # changed to false!
 openshift_hosted_prometheus_deploy=false
-openshift_hosted_prometheus_deploy=false
-openshift_prometheus_node_selector={"region":"infra"}
-openshift_prometheus_namespace=openshift-metrics
-
-# Prometheus
-openshift_prometheus_storage_kind=nfs
-openshift_prometheus_storage_access_modes=['ReadWriteOnce']
-openshift_prometheus_storage_nfs_directory=/exports
-openshift_prometheus_storage_nfs_options='*(rw,root_squash)'
-openshift_prometheus_storage_volume_name=prometheus
-openshift_prometheus_storage_volume_size=10Gi
-openshift_prometheus_storage_labels={'storage': 'prometheus'}
-openshift_prometheus_storage_type='pvc'
-# For prometheus-alertmanager
-openshift_prometheus_alertmanager_storage_kind=nfs
-openshift_prometheus_alertmanager_storage_access_modes=['ReadWriteOnce']
-openshift_prometheus_alertmanager_storage_nfs_directory=/exports
-openshift_prometheus_alertmanager_storage_nfs_options='*(rw,root_squash)'
-openshift_prometheus_alertmanager_storage_volume_name=prometheus-alertmanager
-openshift_prometheus_alertmanager_storage_volume_size=10Gi
-openshift_prometheus_alertmanager_storage_labels={'storage': 'prometheus-alertmanager'}
-openshift_prometheus_alertmanager_storage_type='pvc'
-# For prometheus-alertbuffer
-openshift_prometheus_alertbuffer_storage_kind=nfs
-openshift_prometheus_alertbuffer_storage_access_modes=['ReadWriteOnce']
-openshift_prometheus_alertbuffer_storage_nfs_directory=/exports
-openshift_prometheus_alertbuffer_storage_nfs_options='*(rw,root_squash)'
-openshift_prometheus_alertbuffer_storage_volume_name=prometheus-alertbuffer
-openshift_prometheus_alertbuffer_storage_volume_size=10Gi
-openshift_prometheus_alertbuffer_storage_labels={'storage': 'prometheus-alertbuffer'}
-openshift_prometheus_alertbuffer_storage_type='pvc'
-
-openshift_metrics_cassandra_nodeselector={"region":"infra"}
-openshift_metrics_hawkular_nodeselector={"region":"infra"}
-openshift_metrics_heapster_nodeselector={"region":"infra"}
+## openshift_prometheus_node_selector={"region":"infra"}
+## openshift_prometheus_namespace=openshift-metrics
+## 
+## # Prometheus
+## openshift_prometheus_storage_kind=nfs
+## openshift_prometheus_storage_access_modes=['ReadWriteOnce']
+## openshift_prometheus_storage_nfs_directory=/exports
+## openshift_prometheus_storage_nfs_options='*(rw,root_squash)'
+## openshift_prometheus_storage_volume_name=prometheus
+## openshift_prometheus_storage_volume_size=10Gi
+## openshift_prometheus_storage_labels={'storage': 'prometheus'}
+## openshift_prometheus_storage_type='pvc'
+## # For prometheus-alertmanager
+## openshift_prometheus_alertmanager_storage_kind=nfs
+## openshift_prometheus_alertmanager_storage_access_modes=['ReadWriteOnce']
+## openshift_prometheus_alertmanager_storage_nfs_directory=/exports
+## openshift_prometheus_alertmanager_storage_nfs_options='*(rw,root_squash)'
+## openshift_prometheus_alertmanager_storage_volume_name=prometheus-alertmanager
+## openshift_prometheus_alertmanager_storage_volume_size=10Gi
+## openshift_prometheus_alertmanager_storage_labels={'storage': 'prometheus-alertmanager'}
+## openshift_prometheus_alertmanager_storage_type='pvc'
+## # For prometheus-alertbuffer
+## openshift_prometheus_alertbuffer_storage_kind=nfs
+## openshift_prometheus_alertbuffer_storage_access_modes=['ReadWriteOnce']
+## openshift_prometheus_alertbuffer_storage_nfs_directory=/exports
+## openshift_prometheus_alertbuffer_storage_nfs_options='*(rw,root_squash)'
+## openshift_prometheus_alertbuffer_storage_volume_name=prometheus-alertbuffer
+## openshift_prometheus_alertbuffer_storage_volume_size=10Gi
+## openshift_prometheus_alertbuffer_storage_labels={'storage': 'prometheus-alertbuffer'}
+## openshift_prometheus_alertbuffer_storage_type='pvc'
 
 # Enable cluster logging
 

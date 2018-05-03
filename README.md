@@ -212,7 +212,42 @@ within OCP-WebUI click on prod -project and in there on the route.
 A new browser tab should open the tasks application
 
 
+9) set up HPA 
+[root@oselab-8226 homework]# ansible-playbook -i hosts  32_hpa.yml
 
+     this script enables HPA
+
+To test: 
+within OCP-WebUI click on prod -project and in there on the route.
+A new browser tab should open the tasks application
+within "Load GEnerator" type 100 and press load
+
+
+[root@master1 ~]# oc describe hpa/openshift-tasks -n prod
+     Name:                                                  openshift-tasks
+     Namespace:                                             prod
+     Labels:                                                <none>
+     Annotations:                                           <none>
+     CreationTimestamp:                                     Thu, 03 May 2018 15:09:59 +0200
+     Reference:                                             DeploymentConfig/openshift-tasks
+     Metrics:                                               ( current / target )
+       resource cpu on pods  (as a percentage of request):  88% (44m) / 80%
+     Min replicas:                                          1
+     Max replicas:                                          5
+     Conditions:
+       Type            Status  Reason              Message
+       ----            ------  ------              -------
+       AbleToScale     False   BackoffBoth         the time since the previous scale is still within both the downscale and upscale forbidden windows
+       ScalingActive   True    ValidMetricFound    the HPA was able to succesfully calculate a replica count from cpu resource utilization (percentage of request)
+       ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+     Events:
+       Type    Reason             Age   From                       Message
+       ----    ------             ----  ----                       -------
+       Normal  SuccessfulRescale  15m   horizontal-pod-autoscaler  New size: 2; reason: cpu resource utilization (percentage of request) above target
+       Normal  SuccessfulRescale  9m    horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target
+       Normal  SuccessfulRescale  2m    horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+
+       .... output may look similar, you should not see errors ;-)              
 
 ------------------
 Files needed for the scripts to run:
