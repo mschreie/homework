@@ -87,7 +87,7 @@ objects:
       app: openshift-tasks
     name: openshift-tasks
   spec:
-    host: openshift-tasks-prod.apps.e7f9.oslab.opentlc.com
+    host: openshift-tasks-prod.apps.{{ guid }}.oslab.opentlc.com
     port:
       targetPort: 8080-tcp
     to:
@@ -101,7 +101,7 @@ objects:
       - lastTransitionTime: 2018-04-12T17:49:42Z
         status: "True"
         type: Admitted
-      host: openshift-tasks-prod.apps.e7f9.oslab.opentlc.com
+      host: openshift-tasks-prod.apps.{{ guid }}.oslab.opentlc.com
       routerName: router
       wildcardPolicy: None
 - apiVersion: v1

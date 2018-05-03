@@ -157,7 +157,7 @@ Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc
 
 [root@oselab-8226 homework]# ssh master1.example.com
 [root@master1]# oc get nodes
-browse to: https://loadbalancer1-8226.oslab.opentlc.com:8443/console
+browse to: https://loadbalancer1-8226.oslab.opentlc.com:443/console
 
      This asures minimal functionality 
        - checks prerequisits
@@ -182,17 +182,43 @@ browse to https://github.com/wkulhanek/openshift-tasks
 and fork this to your own account
 i now have https://github.com/mschreie/openshift-tasks
 
-7) set up jenkins
+7) install jenkins
 [root@oselab-8226 homework]# ansible-playbook -i hosts  31_cicd.yml
 
      this script utilizes the git repo url hardcoded
      you might want to change this
 
+8) set up jenkins ( not automated yet)
+
+log in to  https://jenkins-jenkins.apps.1db2.oslab.opentlc.com/ as alice, bob or admin
+New Item ->
+Name: OpenShift-Tasks
+Pipeline -> OK
+Pipeline Definition:  Pipline script from SCM
+SCM: Git
+Repositories - Repository URL: https://github.com/mschreie/homework
+-> Save
+
+-> Build Now (press only once - should work)
+
+at the stage "acknowledge prod" click on the box and -> proceed
+
+To test: 
+within OCP-WebUI click on dev -project and in there on the route.
+A new browser tab should open the tasks application
+
+To test: 
+within OCP-WebUI click on prod -project and in there on the route.
+A new browser tab should open the tasks application
+
+
+
 
 ------------------
-Needed for the scripts to run:
+Files needed for the scripts to run:
 hosts   
-    this is the standar OCP configuration file -i do not add any parameters here, bus utilize this file as a base for the self created scripts as well.
+    This is the standard OCP configuration file. Pointed to via -i . 
 htpasswd.openshift
-    three users are defined (admin, alice, bob); admin wil be promoted to cluster-admim during with one of the playbooks...
+    Three users are defined (admin, alice, bob); admin wil be promoted to cluster-admim during 
+    with one of the playbooks...
 
