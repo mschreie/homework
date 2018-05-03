@@ -32,8 +32,8 @@
       oc set triggers dc openshift-tasks --manual
       oc policy add-role-to-user system:image-puller system:serviceaccount:prod:default -n dev
   - name: copy application-template to host
-    copy:
-      src: files/template_openshift-tasks-prod.xml
+    template:
+      src: files/template_openshift-tasks-prod.xml.j2
       dest: template_openshift-tasks-prod.xml
       owner: root
       group: root
