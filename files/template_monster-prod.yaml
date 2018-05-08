@@ -1,17 +1,16 @@
 kind: Template
 apiVersion: v1
 metadata:
- name: monster
+ name: monster-prod
  annotations:
  tags: instant-app,javaee
  iconClass: icon-jboss
  description: |
- Ticket Monster is a moderately complex application that demonstrates how
- to build modern applications using JBoss web technologies
+   Ticket Monster is a moderately complex application that demonstrates how
+   to build modern applications using JBoss web technologies. This template
+   is for "production deployments" of Ticket Monster.
 
 parameters:
-- name: GIT_URI
- value: git://github.com/mschreie/ticket-monster-ose
 - name: MYSQL_DATABASE
  value: monster
 - name: MYSQL_USER
@@ -20,47 +19,13 @@ parameters:
  from: '[a-zA-Z0-9]{8}'
  generate: expression
 
-
 objects:
-- kind: ImageStream
- apiVersion: v1
- metadata:
- name: monster
-
-- kind: BuildConfig
- apiVersion: v1
- metadata:
- name: monster
- spec:
- triggers:
- - type: Generic
- generic:
- secret: secret
- - type: ImageChange
- - type: ConfigChange
- strategy:
- type: Source
- sourceStrategy:
- from:
- kind: ImageStreamTag
- name: jboss-eap64-openshift:latest
- namespace: openshift
- source:
- type: Git
- git:
- uri: ${GIT_URI}
- ref: master
- output:
- to:
- kind: ImageStreamTag
- name: monster:latest
-
 - kind: DeploymentConfig
  apiVersion: v1
  metadata:
  name: monster
  spec:
- replicas: 1
+ replicas: 3
  selector:
  deploymentConfig: monster
  template:
@@ -77,8 +42,6 @@ objects:
  containerPort: 8080
  - name: jolokia
  containerPort: 8778
- - name: debug
- containerPort: 8787
  readinessProbe:
  exec:
  command:
@@ -100,8 +63,6 @@ objects:
  value: ${MYSQL_PASSWORD}
  - name: JAVA_OPTS
  value: "-Xmx512m -XX:MaxPermSize=256m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.logmanager -Djava.awt.headless=true -Djboss.modules.policy-permissions=true"
- - name: DEBUG
- value: "true"
  triggers:
  - type: ImageChange
  imageChangeParams:
@@ -109,8 +70,9 @@ objects:
  containerNames:
  - monster
  from:
- kind: ImageStream
- name: monster
+ kind: ImageStreamTag
+ name: monster:prod
+ namespace: ticket-monster-test
 
 - kind: DeploymentConfig
  apiVersion: v1
@@ -177,3 +139,5 @@ objects:
  spec:
  to:
  name: monster
+
+

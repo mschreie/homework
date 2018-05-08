@@ -249,11 +249,44 @@ within "Load GEnerator" type 100 and press load
 
        .... output may look similar, you should not see errors ;-)              
 
-------------------
-Files needed for the scripts to run:
-hosts   
-    This is the standard OCP configuration file. Pointed to via -i . 
-htpasswd.openshift
-    Three users are defined (admin, alice, bob); admin wil be promoted to cluster-admim during 
-    with one of the playbooks...
+
+#### starting Development SPIN
+10)  setting up nexus and sonarqube
+[root@oselab-8226 homework]# ansible-playbook -i hosts  40_developmentspin.yml
+
+     this sets up nexus and sonarqube in seperate projects
+
+11) prepare private ticket-master repo
+XXXXXX
+.. see https://keithtenzer.com/2016/08/11/openshift-v3-basic-release-deployment-scenarios/
+login to github.com
+browse to https://github.com/jboss-developer/ticket-monster
+    alt: if it does not work: https://github.com/beelandc/ocp-appdev-ci-ticketmonster/tree/master/ticketmonster
+    alt2: if it still does not work: adietish/ticket-monster
+and fork this to your own account
+i now have https://github.com/mschreie/openshift-tasks
+
+12) set up jenkins for ticket-monster dev( not automated yet)
+
+log in to  https://jenkins-jenkins.apps.1db2.oslab.opentlc.com/ as alice, bob or admin
+New Item ->
+Name: Monster-dev
+Pipeline -> OK
+Pipeline Definition:  Pipline script from SCM
+SCM: Git
+Repositories - Repository URL: https://github.com/mschreie/homework
+Script Path: Jenkinsfile_monster
+-> Save
+
+-> Build Now (press only once - should work)
+
+at the stage "acknowledge prod" click on the box and -> proceed
+
+To test: 
+within OCP-WebUI click on dev -project and in there on the route.
+A new browser tab should open the tasks application
+
+To test: 
+within OCP-WebUI click on prod -project and in there on the route.
+A new browser tab should open the tasks application
 

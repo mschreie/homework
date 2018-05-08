@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <com.openshift.jenkins.plugins.pipeline.OpenShiftBuilder plugin="openshift-pipeline@1.0.4">
+      <apiURL>https://loadbalancer-1db2.oslab.opentlc.com</apiURL>
+      <namespace>dev</namespace>
+      <authToken>RsQpkpdrgKqZjcEU8h0xRxvqx_1LQXYjGJblDQhhZhQ</authToken>
+      <verbose>false</verbose>
+      <bldCfg>v2</bldCfg>
+      <commitID></commitID>
+      <buildName></buildName>
+      <showBuildLogs>true</showBuildLogs>
+    </com.openshift.jenkins.plugins.pipeline.OpenShiftBuilder>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

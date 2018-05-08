@@ -1,0 +1,44 @@
+# This wants to install ticket monster (and it's jenkins pipeline?)
+# taking : https://keithtenzer.com/2016/08/11/openshift-v3-basic-release-deployment-scenarios/
+---
+- name: setting up ticket monster
+  hosts: master1.example.com
+  become: yes
+  tasks:
+  - name: set up projects
+    shell: | 
+      oc login -u system:admin
+      oc new-project ticket-monster-{{ item }}
+      oc policy add-role-to-user edit system:serviceaccount:jenkins:jenkins -n ticket-monster-{{ item }}
+      oc adm policy add-role-to-user edit alice
+      oc adm policy add-role-to-user edit bob
+    with_items:
+     - dev
+     - test
+     - prod
+    
+  - name: set up pull rights for ticket monster projects
+    shell: | 
+      oc policy add-role-to-group system:image-puller system:serviceaccounts:ticket-monster-test -n ticket-monster-dev
+      oc policy add-role-to-group system:image-puller system:serviceaccounts:ticket-monster-prod -n ticket-monster-test
+
+  - name: copy monster-templates to host
+    template:
+      src: "files/template_monster-{{ item }}.yaml.j2"
+      dest: "template_monster-{{ item }}.yaml"
+      owner: root
+      group: root
+      mode: 0644
+    with_items:
+     - dev
+     - test
+     - prod
+
+    # TEMPLATES have issues - maybe not needed
+  - name: make monster template general available in ocp 
+    shell: | 
+      oc create -n openshift -f template_monster-{{ item }}.yaml
+    with_items:
+     - dev
+     - test
+     - prod
