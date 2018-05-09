@@ -104,10 +104,6 @@ openshift_metrics_storage_nfs_options='*(rw,root_squash)'
 openshift_metrics_storage_volume_name=metrics
 openshift_metrics_storage_volume_size=10Gi
 openshift_metrics_storage_labels={'storage': 'metrics'}
-# added this for HPA troubleshooting
-openshift_metrics_hawkular_hostname=hawkular-metrics.apps.a447.example.opentlc.com/hawkular/metrics
-
-#openshift_master_metrics_public_url=https://hawkular-metrics.apps.a447.example.opentlc.com/hawkular/metrics
 
 openshift_metrics_cassandra_nodeselector={"region":"infra"}
 openshift_metrics_hawkular_nodeselector={"region":"infra"}
@@ -162,14 +158,12 @@ openshift_logging_storage_volume_size=10Gi
 openshift_logging_storage_labels={'storage': 'logging'}
 
 # The external host name for web clients to reach Kibana.
-openshift_logging_kibana_hostname=kibana.apps.a447.example.opentlc.com
+openshift_logging_kibana_hostname=kibana.apps.a447.oslab.opentlc.com
 
 # added this cause i could not log into kibana (redirecting to master1....)
 # also see: https://access.redhat.com/solutions/3232581
 openshift_logging_master_url=https://{{ openshift_master_cluster_public_hostname }}
 openshift_logging_master_public_url=https://{{ openshift_master_cluster_public_hostname }}
-#### openshift_logging_master_url=https://kibana.apps.a447.example.opentlc.com
-#### openshift_logging_master_public_url=https://kibana.apps.a447.example.opentlc.com
 
 openshift_logging_es_cluster_size=1
 
@@ -179,7 +173,7 @@ openshift_logging_curator_nodeselector={"region":"infra"}
 
 
 openshift_logging_es_allow_external=True
-openshift_logging_es_hostname=elasticsearch.apps.a447.example.opentlc.com
+openshift_logging_es_hostname=elasticsearch.apps.a447.oslab.opentlc.com
 
 
 ###########################################################################
