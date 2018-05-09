@@ -133,33 +133,33 @@ objects:
     template:
     metadata:
     labels:
-    deploymentConfig: monster-mysql
-    name: monster-mysql
+      deploymentConfig: monster-mysql
+      name: monster-mysql
     spec:
-    containers:
-    - name: monster-mysql
-      image: mysql
-      ports:
-      - containerPort: 3306
-    env:
-    - name: MYSQL_USER
-      value: ${MYSQL_USER}
-    - name: MYSQL_PASSWORD
-      value: ${MYSQL_PASSWORD}
-    - name: MYSQL_DATABASE
-      value: ${MYSQL_DATABASE}
-
-  - kind: Service
-    apiVersion: v1
-    metadata:
-    name: monster
-    spec:
-    ports:
-    - name: http
-      port: 8080
-    selector:
-    deploymentConfig: monster
-
+      containers:
+      - name: monster-mysql
+        image: mysql
+        ports:
+        - containerPort: 3306
+      env:
+      - name: MYSQL_USER
+        value: ${MYSQL_USER}
+      - name: MYSQL_PASSWORD
+        value: ${MYSQL_PASSWORD}
+      - name: MYSQL_DATABASE
+        value: ${MYSQL_DATABASE}
+  
+    - kind: Service
+      apiVersion: v1
+      metadata:
+        name: monster
+      spec:
+        ports:
+        - name: http
+          port: 8080
+        selector:
+          deploymentConfig: monster
+  
   - kind: Service
     apiVersion: v1
     metadata:

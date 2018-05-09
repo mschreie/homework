@@ -1,15 +1,15 @@
 [all:vars]
-guid=1db2
+guid=a447
 
 [OSEv3:vars]
 ansible_user=root 
-ansible_ssh_common_args="-i ./tmp/id_rsa -C -o ControlMaster=auto -o ControlPersist=60s -o ProxyCommand='ssh -W %h:%p -q mschreie-redhat.com@oselab-1db2.oslab.opentlc.com' -o StrictHostKeyChecking=no"
+ansible_ssh_common_args="-i ./tmp/id_rsa -C -o ControlMaster=auto -o ControlPersist=60s -o ProxyCommand='ssh -W %h:%p -q mschreie-redhat.com@oselab-a447.oslab.opentlc.com' -o StrictHostKeyChecking=no"
 ansible_ssh_pipelining=true
 ansible_ssh_retries=3
 
 
 [jumphost]
-oselab-1db2.oslab.opentlc.com ansible_user=mschreie-redhat.com
+oselab-a447.oslab.opentlc.com ansible_user=mschreie-redhat.com
 
 [localhosts]
 localhost ansible_become=true ansible_connection=local
