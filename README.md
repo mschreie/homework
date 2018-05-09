@@ -274,8 +274,9 @@ Name: Monster-dev
 Pipeline -> OK
 Pipeline Definition:  Pipline script from SCM
 SCM: Git
-Repositories - Repository URL: https://github.com/mschreie/homework
-Script Path: Jenkinsfile_monster
+Repositories - Repository URL: https://github.com/mschreie/ticket-monster
+Branch Specifier (blank for 'any'): */2.7.0.Final-with-tutorials
+Script Path: Jenkinsfile
 -> Save
 
 -> Build Now (press only once - should work)
@@ -289,4 +290,5 @@ A new browser tab should open the tasks application
 To test: 
 within OCP-WebUI click on prod -project and in there on the route.
 A new browser tab should open the tasks application
+
 
