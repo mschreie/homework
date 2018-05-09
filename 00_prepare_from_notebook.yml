@@ -14,11 +14,12 @@
   - subscribe_yum
   - prep_git
 
-- name: prepare all hosts 
-  hosts: OSEv3
-  become: true
-  roles:
-  - prep_hostname
-  - subscribe_yum
+# moved to 02_prepare_from_jumphost
+#- name: prepare all hosts 
+#  hosts: OSEv3
+#  become: true
+#  roles:
+#  - prep_hostname
+#  - subscribe_yum
 
 

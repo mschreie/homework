@@ -1,0 +1,9 @@
+---
+- name: prepare all hosts 
+  hosts: OSEv3
+  become: true
+  roles:
+  - prep_hostname
+  - subscribe_yum
+
+
