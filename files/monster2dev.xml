@@ -13,7 +13,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <com.openshift.jenkins.plugins.pipeline.OpenShiftBuilder plugin="openshift-pipeline@1.0.4">
-      <apiURL>https://loadbalancer-1db2.oslab.opentlc.com</apiURL>
+      <apiURL>https://loadbalancer-a447.oslab.opentlc.com</apiURL>
       <namespace>dev</namespace>
       <authToken>RsQpkpdrgKqZjcEU8h0xRxvqx_1LQXYjGJblDQhhZhQ</authToken>
       <verbose>false</verbose>
