@@ -47,6 +47,7 @@ Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc
     This logs in to jumphost and pulls latest files from github
 
 
+[root@oselab-8226 homework]# ansible-playbook -i hosts --ask-vault-pass -e @mysecrets.yml -e @config.yml 02_prepare_from_jumphost.yml
 [root@oselab-8226 homework]# bash 10_dns_installer.sh 
      Loaded plugins: search-disabled-repos, subscription-manager
      rhel-7-fast-datapath-rpms                                                   | 4.0 kB  00:00:00     
@@ -108,6 +109,9 @@ Markuss-MBP:homework mschreie$ ssh mschreie-redhat.com@oselab-8226.oslab.opentlc
       Output of the cmd looks similar to:
       node5.example.com | SUCCESS | rc=0 >>
       DOCKER_STORAGE_OPTIONS=--storage-driver devicemapper --storage-opt dm.fs=xfs --storage-opt dm.thinpooldev=/dev/mapper/docker--vg-docker--pool
+
+[root@oselab-8226 homework]# export guid=a447
+[root@oselab-8226 homework]# ansible all -i hosts -m shell -a "dig +short hawkular-metrics.apps.$guid.oslab.opentlc.com/hawkular/metrics"
 
 3) do ocp installation
 
