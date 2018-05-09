@@ -54,29 +54,6 @@
   when: repos is defined and (disable_repos|length > 0 or enable_repos|length > 0)
 
 
-- name: install ocp needed packages
-  yum:
-    name: "{{ item }}"
-    state: latest
-  with_items: 
-    - "{{ packages }}"
-  register: prerequisites
-  async: 600
-  poll: 0
-  when: not ( packages is undefined or packages is none or packages | trim == '')
-
-- debug: 
-    var: prerequisites
-    verbosity: 2
-
-- name: poll for install prereqs complete
-  async_status: jid={{ prerequisites.results.0.ansible_job_id }}
-  register: job_result
-  until: job_result.finished
-  retries: 60
-  delay: 10
-  when: not prerequisites is skipped
-
 - name: check if initial upgrade has happened
   stat: path=/.initial_upgrade_complete
   register: upgrade_complete
@@ -107,6 +84,29 @@
 - name: note that initial upgrade has happened
   file: path=/.initial_upgrade_complete state=touch
   when: not upgrade_complete.stat.exists
+
+- name: install ocp needed packages
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - "{{ packages }}"
+  register: prerequisites
+  async: 600
+  poll: 0
+  when: not ( packages is undefined or packages is none or packages | trim == '')
+
+- debug: 
+    var: prerequisites
+    verbosity: 2
+
+- name: poll for install prereqs complete
+  async_status: jid={{ prerequisites.results.0.ansible_job_id }}
+  register: job_result
+  until: job_result.finished
+  retries: 60
+  delay: 10
+  when: not prerequisites is skipped
 
 #- fail:
 #    msg: "Stopping before reboot - as it will not boot"
