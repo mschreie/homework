@@ -17,4 +17,5 @@
        block: |
          {% for infrahost in groups['infra'] %}{% for fqdn in local_dns_entries %}{{ hostvars[infrahost]['external_ip'] }} {{ fqdn }} 
          {% endfor %}{% endfor %}
-       marker: "# {mark} ANSIBLE MANAGED BLOCK "
+       marker: "# {mark} ANSIBLE MANAGED BLOCK for my homework"
+       backup: yes

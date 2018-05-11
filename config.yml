@@ -167,3 +167,6 @@ local_dns_entries:
   - kibana.apps.{{ guid }}.oslab.opentlc.com
   - openshift-tasks-prod.apps.{{ guid }}.oslab.opentlc.com
   - openshift-tasks-dev.apps.{{ guid }}.oslab.opentlc.com
+  - monster-ticket-monster-prod.apps.{{ guid }}.oslab.opentlc.com
+  - monster-ticket-monster-test.apps.{{ guid }}.oslab.opentlc.com
+  - monster-ticket-monster-dev.apps.{{ guid }}.oslab.opentlc.com
