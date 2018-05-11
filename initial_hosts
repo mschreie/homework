@@ -33,8 +33,8 @@ master3.example.com
 
 
 [infra]
-infranode3.example.com  external_ip=35.233.83.234
-infranode2.example.com  external_ip=35.233.102.120
+infranode3.example.com  external_ip=35.233.33.100
+infranode2.example.com  external_ip=35.233.61.63
 
 [nodes]
 node1.example.com 

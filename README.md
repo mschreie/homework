@@ -17,7 +17,7 @@ Markuss-MBP:projects mschreie$ ansible-vault create mysecrets.yml
 
 Markuss-MBP:projects mschreie$ vi 10_dns_installer.sh hosts initial_hosts files/monster2*.xml
 ... change Environment-ID to the correct one
-... also change external_ip of infranodes in initial_hosts
+... also change external_ip of infranodes in initial_hosts          <<<<<<<< !!!!!!!! do not forget !!!!!!!
 
 
 Markuss-MBP:homework mschreie$ ansible-playbook -i initial_hosts --ask-vault-pass -e @mysecrets.yml -e @config.yml 00_prepare_from_notebook.yml
