@@ -34,10 +34,19 @@
      - test
      - prod
 
-    # TEMPLATES have issues - maybe not needed
+    # maybe not needed
   - name: make monster template general available in ocp 
     shell: | 
       oc create -n openshift -f template_monster-{{ item }}.yaml
+    with_items:
+     - dev
+     - test
+     - prod
+
+  - name: predeploy monster apps
+    shell: | 
+      ## oc process -f template_monster-{{ item }}.yaml | oc create -f - -n ticket-monster-{{ item }}
+      oc process openshift//monster-{{ item }} | oc create -f - -n ticket-monster-{{ item }}
     with_items:
      - dev
      - test
