@@ -221,6 +221,18 @@ A new browser tab should open the tasks application
 
      this script enables HPA
 
+.... manual tasks ... on master
+...
+[root@master1 ~]# oc edit deploymentconfig openshift-tasks -n prod
+spec:
+  containers:
+  - image: nginx
+    name: nginx
+    resources:
+      requests:
+        cpu: 400m
+...
+
 To test: 
 within OCP-WebUI click on prod -project and in there on the route.
 A new browser tab should open the tasks application
