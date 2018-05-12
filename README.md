@@ -282,7 +282,16 @@ browse to https://github.com/jboss-developer/ticket-monster
 and fork this to your own account
 i now have https://github.com/mschreie/openshift-tasks
 
-12) set up jenkins for ticket-monster dev( not automated yet)
+
+12) prepare ticket-monster projects:
+[root@oselab-8226 homework]# ansible-playbook -i hosts  41_ticketmonster.yml
+
+
+
+master1: oc tag openshift/jboss-eap64-openshift:1.7 openshift/jboss-eap64-openshift:latest
+
+
+13) set up jenkins for ticket-monster dev( not automated yet)
 
 log in to  https://jenkins-jenkins.apps.1db2.oslab.opentlc.com/ as alice, bob or admin
 New Item ->

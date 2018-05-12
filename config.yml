@@ -170,3 +170,6 @@ local_dns_entries:
   - monster-ticket-monster-prod.apps.{{ guid }}.oslab.opentlc.com
   - monster-ticket-monster-test.apps.{{ guid }}.oslab.opentlc.com
   - monster-ticket-monster-dev.apps.{{ guid }}.oslab.opentlc.com
+  - registry-console-default.apps.{{ guid }}.oslab.opentlc.com
+  - nexus-registry-nexus.apps.{{ guid }}.oslab.opentlc.com
+  - sonarqube-sonarqube.apps.a447.oslab.opentlc.com
