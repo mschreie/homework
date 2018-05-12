@@ -12,6 +12,8 @@ metadata:
 parameters:
   - name: GIT_URI
     value: git://github.com/mschreie/ticket-monster
+  - name: GIT_REF
+    value: 2.7.0.Final-with-tutorials
   - name: MYSQL_DATABASE
     value: monster
   - name: MYSQL_USER
@@ -49,7 +51,7 @@ objects:
         type: Git
         git:
           uri: ${GIT_URI}
-          ref: master
+          ref: ${GIT_REF}
       output:
         to:
           kind: ImageStreamTag
