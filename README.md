@@ -230,7 +230,7 @@ spec:
     name: nginx
     resources:
       requests:
-        cpu: 400m
+        cpu: 90m
 ...
 
 To test: 
