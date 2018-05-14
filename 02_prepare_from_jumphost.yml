@@ -6,4 +6,10 @@
   - prep_hostname
   - subscribe_yum
 
+- name: prepare all hosts 
+  hosts: nfs
+  become: true
+  roles:
+  - prep_nfshosts
+
 
