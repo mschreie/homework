@@ -287,7 +287,6 @@ i now have https://github.com/mschreie/openshift-tasks
 [root@oselab-8226 homework]# ansible-playbook -i hosts  41_ticketmonster.yml
 
 
-
 master1: oc tag openshift/jboss-eap64-openshift:1.7 openshift/jboss-eap64-openshift:latest
 
 
@@ -295,7 +294,7 @@ master1: oc tag openshift/jboss-eap64-openshift:1.7 openshift/jboss-eap64-opensh
 
 log in to  https://jenkins-jenkins.apps.1db2.oslab.opentlc.com/ as alice, bob or admin
 New Item ->
-Name: Monster-dev
+Name: Ticket-Monster-Dev
 Pipeline -> OK
 Pipeline Definition:  Pipline script from SCM
 SCM: Git
