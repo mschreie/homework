@@ -225,6 +225,7 @@ lb
 masters
 etcd
 nodes
+new_nodes
 nfs
 
 [lb]
@@ -257,6 +258,10 @@ infranode2.example.com openshift_hostname=infranode2.example.com  openshift_node
 node1.example.com openshift_hostname=node1.example.com  openshift_node_labels="{'logging':'true','cluster': 'a447', 'region':'app', 'zone': 'eu-central-1b'}"
 node2.example.com openshift_hostname=node2.example.com  openshift_node_labels="{'logging':'true','cluster': 'a447', 'region':'app', 'zone': 'eu-central-1b'}"
 node3.example.com openshift_hostname=node3.example.com  openshift_node_labels="{'logging':'true','cluster': 'a447', 'region':'app', 'zone': 'eu-central-1b'}"
+node4.example.com openshift_hostname=node4.example.com  openshift_node_labels="{'logging':'true','cluster': 'a447', 'region':'app', 'zone': 'eu-central-1b'}"
+node5.example.com openshift_hostname=node5.example.com  openshift_node_labels="{'logging':'true','cluster': 'a447', 'region':'app', 'zone': 'eu-central-1b'}"
+
+[new_nodes]
 
 
 [nfs]
@@ -266,7 +271,5 @@ node6.example.com openshift_hostname=node6.example.com
 ##cf1.example.com
 ##ipa.example.com
 infranode1.example.com
-node4.example.com
-node5.example.com
 localhost
 
