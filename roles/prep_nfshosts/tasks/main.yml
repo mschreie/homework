@@ -1,0 +1,20 @@
+---
+# tasks file for prep_nfshosts
+- name: stop and disable docker on nfs host
+  systemctl:
+    name: docker
+    enabled: no
+    state: stopped
+- name: Create a xfs filesystem on the docker device
+  filesystem:
+    fstype: xfs
+    dev: /dev/docker-vg/docker--pool
+
+- name: Filesystem
+  mount:
+    path: /exports
+    src: /dev/docker-vg/docker--pool
+    fstype: xfs
+    state: present
+
+- 
