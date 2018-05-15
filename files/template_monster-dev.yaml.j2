@@ -14,6 +14,8 @@ parameters:
     value: git://github.com/mschreie/ticket-monster
   - name: GIT_REF
     value: 2.7.0.Final-with-tutorials
+  - name: GIT_CONTEXTDIR
+    value: demo
   - name: MYSQL_DATABASE
     value: monster
   - name: MYSQL_USER
@@ -49,6 +51,7 @@ objects:
             namespace: openshift
       source:
         type: Git
+        contextDir: ${GIT_CONTEXTDIR}
         git:
           uri: ${GIT_URI}
           ref: ${GIT_REF}
