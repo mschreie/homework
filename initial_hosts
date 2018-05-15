@@ -40,6 +40,8 @@ infranode2.example.com  external_ip=35.233.61.63
 node1.example.com 
 node2.example.com
 node3.example.com
+node4.example.com
+node5.example.com
 
 
 [nfs]
@@ -49,7 +51,5 @@ node6.example.com
 ##cf1.example.com
 ##ipa.example.com
 infranode1.example.com
-node4.example.com
-node5.example.com
 
 
