@@ -35,7 +35,7 @@ pipeline {
         stage('Prod: Deploy new image') {
            steps {
               openshiftDeploy depCfg: 'openshift-tasks', namespace: 'prod', verbose: 'false', waitTime: '', waitUnit: 'sec'
-              openshiftVerifyDeployment depCfg: 'openshift-tasks', namespace: 'prod', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'true', waitTime: '', waitUnit: 'sec'
+              openshiftVerifyDeployment depCfg: 'openshift-tasks', namespace: 'prod', replicaCount: '1', verbose: 'false', verifyReplicaCount: 'false', waitTime: '', waitUnit: 'sec'
               openshiftVerifyService namespace: 'prod', svcName: 'openshift-tasks', verbose: 'false', retryCount: '5'
            }
         }
